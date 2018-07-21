@@ -1,0 +1,8 @@
+require 'rubygems'
+require 'bundler'
+
+Bundler.require(:default, ENV['RACK_ENV'].to_sym)
+
+require './lib/micro_learn'
+use MicroLearn
+run Sinatra::Application
