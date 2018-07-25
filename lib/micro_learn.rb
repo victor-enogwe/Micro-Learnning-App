@@ -1,12 +1,17 @@
 require 'sinatra/base'
+require 'sinatra/activerecord'
 
 ##
 # micro learning class
 class MicroLearn < Sinatra::Base
+  register Sinatra::ActiveRecordExtension
+
   configure :development do
     Sinatra::Application.reset!
     use Rack::Reloader
   end
+
+  set :database, ENV['DATABASE_URL']
 
   def initialize(app)
     super(app)
