@@ -9,7 +9,7 @@ class JwtAuth
     bearer = env.fetch('HTTP_AUTHORIZATION', '').slice(7..-1)
     payload, header = JWT.decode bearer, ENV['JWT_SECRET'], true, options
     content_type = { 'Content-Type' => 'text/plain' }
-    env[:scopes] = payload['scopes']
+    # env[:scopes] = payload['scopes']
     env[:user] = payload['user']
     @app.call env
   rescue JWT::DecodeError

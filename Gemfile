@@ -10,10 +10,13 @@ gem 'sinatra'
 gem 'slim'
 gem 'activerecord'
 gem 'sinatra-activerecord'
+gem 'sinatra-param'
 gem 'pg'
 gem 'bcrypt'
 gem 'jwt'
 gem 'rake'
+gem 'json-schema'
+gem 'rack-parser'
 
 group :development do
 	gem 'rubocop'
