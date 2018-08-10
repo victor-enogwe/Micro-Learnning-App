@@ -1,6 +1,7 @@
-require 'dotenv'
-
-Dotenv.overload
+if ENV['RACkENV'] == 'development'
+  require 'dotenv'
+  Dotenv.overload
+end
 
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
