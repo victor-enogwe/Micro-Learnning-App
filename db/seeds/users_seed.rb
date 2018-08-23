@@ -1,4 +1,4 @@
-user_role = Role.find_by_name 'user'
+user_role = Role.find_by_name 'admin'
 
 [
   {

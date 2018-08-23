@@ -2,23 +2,23 @@
 class JwtAuth
   def initialize(app)
     @app = app
+    @authed_routes = [
+      '/users/'
+    ]
   end
 
-  def call env
-    options = { algorithm: 'HS256', iss: ENV['JWT_ISSUER'] }
-    bearer = env.fetch('HTTP_AUTHORIZATION', '').slice(7..-1)
-    payload, header = JWT.decode bearer, ENV['JWT_SECRET'], true, options
-    content_type = { 'Content-Type' => 'text/plain' }
-    # env[:scopes] = payload['scopes']
-    env[:user] = payload['user']
+  def auth_credentials(env)
+    options = { algorithm: ENV['JWT_ALGO'], iss: ENV['JWT_ISSUER'] }
+    token = env.fetch('HTTP_AUTHORIZATION', '').slice(7..-1)
+    payload = JWT.decode token, ENV['JWT_SECRET'], true, options
+    env[:scopes] = payload[0]['scopes']
+    env[:user] = payload[0]['user']
+  end
+
+  def call(env)
+    current_route = env['PATH_INFO']
+    auth = !@authed_routes.all? { |route| !(/#{route}\w+/.match current_route) }
+    auth_credentials env if auth
     @app.call env
-  rescue JWT::DecodeError
-    [401, content_type, ['No token passed.']]
-  rescue JWT::ExpiredSignature
-    [403, content_type, ['Token expired.']]
-  rescue JWT::InvalidIssuerError
-    [403, content_type, ['Token invalid issuer.']]
-  rescue JWT::InvalidIatError
-    [403, content_type, ['Token invalid "issued at" time.']]
   end
 end

@@ -1,12 +1,12 @@
 require 'sinatra/base'
+require "sinatra/reloader" if development?
 require 'rack'
 require 'slim'
 
 # micro learning class
 class MicroLearn < Sinatra::Base
   configure :development do
-    Sinatra::Application.reset!
-    use Rack::Reloader
+    register Sinatra::Reloader
   end
 
   # GZip compession

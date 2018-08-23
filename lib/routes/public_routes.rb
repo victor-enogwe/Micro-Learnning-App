@@ -1,5 +1,3 @@
-require 'sinatra/base'
-
 #  Sinatra DSL
 module Sinatra
   # Public Routes
@@ -21,7 +19,23 @@ module Sinatra
         slim :register
       end
 
+      app.get '/courses' do
+        @title = 'Courses'
+        slim :courses
+      end
+
+      app.get '/courses/new' do
+        @title = 'Edit Course'
+        slim :edit_course
+      end
+
+      app.get '/courses/:id/edit' do
+        @title = 'Courses'
+        slim :edit_course
+      end
+
       app.not_found do
+        @title = '404'
         slim :not_found
       end
     end

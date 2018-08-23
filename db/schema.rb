@@ -16,11 +16,12 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
   enable_extension "plpgsql"
 
   create_table "courses", force: :cascade do |t|
-    t.string "name", null: false
+    t.bigint "creator_id", null: false
+    t.string "title", null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_courses_on_name"
+    t.index ["title"], name: "index_courses_on_title"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -53,7 +54,7 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
     t.string "fname", null: false
     t.string "lname", null: false
     t.string "email", null: false
-    t.string "password_hash", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -4,7 +4,7 @@ class Users < ActiveRecord::Migration[5.2]
       t.string :fname, index: true, null: false
       t.string :lname, index: true, null: false
       t.string :email, null: false, index: { unique: true }
-      t.string :password_hash, null: false
+      t.string :password_digest, null: false
       t.timestamps
     end
   end

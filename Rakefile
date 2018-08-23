@@ -1,4 +1,4 @@
-if ENV['RACK_ENV'] == 'development'
+if ENV['RACK_ENV'] == 'development' || !ENV['RACK_ENV']
   require 'dotenv'
   Dotenv.overload
 end

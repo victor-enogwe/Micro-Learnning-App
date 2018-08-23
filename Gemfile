@@ -4,26 +4,29 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-gem 'rack'
-gem 'rack-protection'
-gem 'sinatra'
-gem 'slim'
 gem 'activerecord'
+gem 'bcrypt'
+gem 'json-schema'
+gem 'jwt'
+gem 'pg'
+gem 'rack'
+gem 'rack-contrib'
+gem 'rack-parser'
+gem 'rack-protection'
+gem 'rake'
+gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sinatra-param'
-gem 'pg'
-gem 'bcrypt'
-gem 'jwt'
-gem 'rake'
-gem 'json-schema'
-gem 'rack-parser'
+gem 'slim'
 
 group :development do
-	gem 'rubocop'
+  gem 'sinatra-contrib'
+  gem 'rubocop'
+  gem 'ruby-prof'
 end
 
 group :test do
-  gem "rspec"
+  gem 'rspec'
 end
 
 group :development, :test do

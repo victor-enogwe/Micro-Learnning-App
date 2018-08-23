@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler'
 require 'rack/parser'
-# require 'rack/protection'
+require 'rack/contrib'
 
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
@@ -18,8 +18,7 @@ Dir.glob(File
 
 # require controller(s)
 Dir.glob(File
-  .join(APP_ROOT, 'lib', 'controllers', '*.rb')).each { |file| require file }
-
+  .join(APP_ROOT, 'lib', 'helpers', '**', '*.rb')).each { |file| require file }
 
 # require route(s)
 Dir.glob(File
@@ -28,6 +27,8 @@ Dir.glob(File
 require './lib/micro_learn_api'
 require './lib/micro_learn'
 
-# use Rack::Protection
+use Rack::Profiler if ENV['RACK_ENV'] == 'development'
+use Rack::ETag
+use Rack::BounceFavicon
 
 run Rack::URLMap.new '/' => MicroLearn, '/api/v1' => MicroLearnApi

@@ -1,7 +1,9 @@
 require 'dotenv'
 require 'sinatra/base'
 require 'sinatra/activerecord'
+require "sinatra/reloader" if development?
 require 'sinatra/param'
+require 'jwt'
 require 'rack'
 
 # micro learning class
@@ -11,32 +13,35 @@ class MicroLearnApi < Sinatra::Base
   end
 
   configure :development do
-    Sinatra::Application.reset!
-    use Rack::Reloader
+    register Sinatra::Reloader
   end
 
   set :database_url, ENV['DATABASE_URL']
+  set :dump_errors, false
+  set :raise_errors, true
+  set :show_exceptions, false
 
   use Rack::Parser, content_types: {
     'application/json' => proc { |body| ::MultiJson.decode body }
   }
 
   before do
+    request.path_info.chomp!('/')
     content_type :json
     request.body.rewind
   end
 
+  use ErrorHandler
+  use JwtAuth
+
   helpers Sinatra::Param
-  helpers Sinatra::UserController
-  helpers Sinatra::CourseController
-  helpers Sinatra::TopicController
-  helpers Sinatra::AuthController
-  helpers Sinatra::UserCourseController
-  helpers Sinatra::UserTopicController
+  helpers Sinatra::PermissionHelper
+  helpers Sinatra::AuthHelper
+  helpers Sinatra::UserHelper
+  helpers Sinatra::CourseHelper
 
   register Sinatra::ActiveRecordExtension
   register Sinatra::AuthRoutes
-
-  # use JwtAuth
   register Sinatra::UserRoutes
+  register Sinatra::CourseRoutes
 end

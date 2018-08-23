@@ -1,16 +1,14 @@
-require 'bcrypt'
-
 # User model
 class User < ActiveRecord::Base
-  # users.password_hash in the database is a :string
-  include BCrypt
-
+  has_secure_password
   has_many :users_courses
   has_many :courses, through: :users_courses
+  # has_many :courses, :foreign_key => :creator_id
   has_many :users_topics
   has_many :topics, through: :users_topics
   has_many :users_permissions
   has_many :permissions, through: :users_permissions
+
 
   validates :email,
     :presence => { message: 'Enter your email address!' },
@@ -27,12 +25,7 @@ class User < ActiveRecord::Base
     :length => { in: 2..20 },
     :format => /\w+/
 
-  def password
-    @password ||= Password.new(password_hash)
-  end
-
-  def password=(new_password)
-    @password = Password.create(new_password)
-    self.password_hash = @password
+  def self.select_without *columns
+    self.select(self.attribute_names - columns.map(&:to_s))
   end
 end

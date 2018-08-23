@@ -1,13 +1,13 @@
-require 'sinatra/base'
-
 # sinatra DSL
 module Sinatra
   # user routes
   module UserRoutes
     def self.registered(app)
-      app.get('/api/v1/user/find/:id') { find_user }
-      app.post('/api/v1/user/update') { edit_user }
-      app.delete('/api/v1/user/delete') { delete_user }
+      app.post('/users') { register_user  }
+      app.get('/users/:id') { find_user }
+      app.put('/users/:id/permissions') { add_permission }
+      app.patch('/users/:id') { edit_user }
+      app.delete('/users/:id') { delete_user }
     end
   end
 end
