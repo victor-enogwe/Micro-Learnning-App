@@ -1,0 +1,16 @@
+[
+  'update_profile',
+  'delete_profile',
+  'create_course',
+  'update_course',
+  'delete_course',
+  'create_topic',
+  'update_topic',
+  'delete_topic',
+  'manage_users',
+  'manage_courses',
+  'manage_topics',
+  'manage_roles',
+  'manage_users_permissions',
+  'manage_users_courses',
+].each { |permission| Permission.find_or_create_by :name => permission }

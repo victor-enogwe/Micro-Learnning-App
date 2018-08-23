@@ -1,0 +1,39 @@
+.container
+  .page-section
+    .row
+      .col-md-12
+        /! Tabbable Widget
+        .tabbable.paper-shadow.relative data-z="0.5"
+          /! Tabs
+          ul.nav.nav-tabs role="tablist"
+            li.active
+              a href="#course" aria-controls="course" role="tab" data-toggle="tab"
+                i.fa.fa-fw.fa-book
+                span.hidden-sm.hidden-xs Course
+            li
+              a href="#meta" aria-controls="meta" role="tab" data-toggle="tab"
+                i.fa.fa-fw.fa-credit-card
+                span.hidden-sm.hidden-xs Meta
+            li
+              a href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab"
+                i.fa.fa-fw.fa-credit-card
+                span.hidden-sm.hidden-xs Lessons
+          /! // END Tabs
+          /! Panes
+          .tab-content
+            #course.tab-pane.active
+              script#course-form type="text/html"
+                form
+                  .form-group.form-control-material
+                    div#title data-editors="title" placeholder=("Course Title") type="text" /
+                    label for="title"  Title
+                  .form-group
+                    label for="description"  Description
+                    div#description data-editors="description"
+                  button.btn.btn-primary type="submit" Create Course
+            #meta.tab-pane
+              a.btn.btn-primary href="#meta" aria-controls="meta" role="tab" data-toggle="tab"  Prev
+              a.btn.btn-primary.pull-right href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab"  Next
+            #lessons.tab-pane
+              a.btn.btn-primary href="#lessons" aria-controls="lessons" role="tab" data-toggle="tab"  Next
+              a.btn.btn-primary.pull-right href="#"  Save Course

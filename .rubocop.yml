@@ -4,6 +4,7 @@ AllCops:
   Include:
     - '**/Rakefile'
     - '**/config.ru'
+    - 'db/models/*'
   Exclude:
     - 'db/**/*'
     - 'config/**/*'

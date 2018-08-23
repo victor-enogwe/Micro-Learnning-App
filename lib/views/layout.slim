@@ -1,0 +1,7 @@
+doctype html
+html.transition-navbar-scroll.top-navbar-xlarge.bottom-footer lang="en"
+  == slim :'layouts/header'
+  body
+    == slim :'layouts/nav'
+    = yield
+    == slim :'layouts/footer'
