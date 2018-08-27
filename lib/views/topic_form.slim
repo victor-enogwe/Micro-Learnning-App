@@ -1,0 +1,11 @@
+script#topic_form type="text/html"
+  .panel
+    .panel-heading
+      button.btn.btn-white.topic_buttons data-parent="#" data-toggle="collapse" data-target="<%= '#' + formId %>" id="<%= 'form_' + formId %>"
+        i.fa.fa-fw.fa-plus-square-o
+        span Click Here To Edit Topic
+    .panel-collapse.collapse id="<%= formId %>"
+      form.panel-body data-fields="title,url,description"
+        .row
+          button.btn.btn-primary.pull-right.btn-xs type="submit" id="<%= 'form_submit_' + formId %>" Save Topic
+          button.btn.btn-white.pull-right.btn-xs style="margin-right: 10px" type="submit" id="<%= 'form_delete_' + formId %>" Delete Topic

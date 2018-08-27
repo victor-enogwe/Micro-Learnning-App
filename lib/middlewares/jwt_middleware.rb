@@ -2,9 +2,6 @@
 class JwtAuth
   def initialize(app)
     @app = app
-    @authed_routes = [
-      '/users/'
-    ]
   end
 
   def auth_credentials(env)
@@ -16,9 +13,7 @@ class JwtAuth
   end
 
   def call(env)
-    current_route = env['PATH_INFO']
-    auth = !@authed_routes.all? { |route| !(/#{route}\w+/.match current_route) }
-    auth_credentials env if auth
+    auth_credentials env
     @app.call env
   end
 end

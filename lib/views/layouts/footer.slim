@@ -1,10 +1,13 @@
 footer.footer
   strong Micro Learn
   | v1.0 &copy; Copyright #{Date.today.year	}
+== slim :'layouts/templates'
 script src="https://code.jquery.com/jquery-1.12.4.min.js"
+script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.26.11/sweetalert2.all.min.js"
 script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"
 script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"
-script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-forms/0.14.1/backbone-forms.min.js"
-script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-forms/0.14.1/templates/bootstrap3.js"
-script src="#{'/js/'+ @title.gsub(' ', '-').downcase + '.js'}"
+script src="/js/vendor/backbone_bootstrap.js"
+- for script in @scripts
+    script src="#{'/js/'+ script + '.js'}"

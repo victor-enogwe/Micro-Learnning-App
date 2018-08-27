@@ -1,0 +1,312 @@
+
+lib/micro_learn_api_auth.rb,62
+class MicroLearnApiAuth < Sinatra::BaseMicroLearnApiAuth9,0
+
+lib/middlewares/error_middleware.rb,139
+class ErrorHandlerErrorHandler2,0
+  def initialize(app)initialize3,0
+  def call(env)call19,0
+  def error_json(error)error_json28,0
+
+lib/middlewares/jwt_middleware.rb,138
+class JwtAuthJwtAuth2,0
+  def initialize(app)initialize3,0
+  def auth_credentials(env)auth_credentials7,0
+  def call(env)call15,0
+
+lib/micro_learn.rb,48
+class MicroLearn < Sinatra::BaseMicroLearn6,0
+
+lib/routes/api_auth_routes.rb,394
+module SinatraSinatra2,0
+  module ApiAuthRoutesApiAuthRoutes4,0
+  module ApiAuthRoutesSinatra::ApiAuthRoutes4,0
+    def self.registered(app)registered5,0
+    def course_routes(app)course_routes13,0
+    def user_routes(app)user_routes23,0
+    def user_sub_routes(app)user_sub_routes31,0
+    def topic_routes(app)topic_routes39,0
+    def category_routes(app)category_routes45,0
+
+lib/routes/public_routes.rb,158
+module SinatraSinatra2,0
+  module PublicRoutesPublicRoutes4,0
+  module PublicRoutesSinatra::PublicRoutes4,0
+    def self.registered(app)registered5,0
+
+lib/routes/api_routes.rb,228
+module SinatraSinatra2,0
+  module ApiRoutesApiRoutes4,0
+  module ApiRoutesSinatra::ApiRoutes4,0
+    def self.registered(app)registered6,0
+    def routes_zero(app)routes_zero11,0
+    def routes_one(app)routes_one17,0
+
+lib/helpers/v1/topic_helper.rb,110
+module SinatraSinatra2,0
+  module TopicHelperTopicHelper4,0
+  module TopicHelperSinatra::TopicHelper4,0
+
+lib/helpers/v1/permission_helper.rb,261
+module SinatraSinatra2,0
+  module PermissionHelperPermissionHelper4,0
+  module PermissionHelperSinatra::PermissionHelper4,0
+    def permission(creator_id, permissions = [])permission5,0
+    def find_permission_by_name(name)find_permission_by_name12,0
+
+lib/helpers/v1/user_helpler.rb,479
+module SinatraSinatra2,0
+  module UserHelperUserHelper4,0
+  module UserHelperSinatra::UserHelper4,0
+    def validate_create_user_params(required = true)validate_create_user_params5,0
+    def create_user(user)create_user14,0
+    def find_user_by_email(email)find_user_by_email22,0
+    def register_userregister_user27,0
+    def edit_useredit_user33,0
+    def find_userfind_user41,0
+    def delete_userdelete_user48,0
+    def add_permissionadd_permission54,0
+
+lib/helpers/v1/user_topic_helper.rb,126
+module SinatraSinatra2,0
+  module UserTopicHelperUserTopicHelper4,0
+  module UserTopicHelperSinatra::UserTopicHelper4,0
+
+lib/helpers/v1/auth_helper.rb,316
+module SinatraSinatra2,0
+  module AuthHelperAuthHelper4,0
+  module AuthHelperSinatra::AuthHelper4,0
+    def loginlogin5,0
+    def payload(user)payload16,0
+    def create_token(payload)create_token26,0
+    def decode_token(token)decode_token30,0
+    def validate_login_paramsvalidate_login_params35,0
+
+lib/helpers/v1/user_course_helper.rb,130
+module SinatraSinatra2,0
+  module UserCourseHelperUserCourseHelper4,0
+  module UserCourseHelperSinatra::UserCourseHelper4,0
+
+lib/helpers/v1/category_helper.rb,122
+module SinatraSinatra2,0
+  module CategoryHelperCategoryHelper4,0
+  module CategoryHelperSinatra::CategoryHelper4,0
+
+lib/helpers/v1/course_helper.rb,244
+module SinatraSinatra2,0
+  module CourseHelperCourseHelper4,0
+  module CourseHelperSinatra::CourseHelper4,0
+    def validate_create_course_params(required = true)validate_create_course_params5,0
+    def create_coursecreate_course11,0
+
+lib/micro_learn_api.rb,54
+class MicroLearnApi < Sinatra::BaseMicroLearnApi9,0
+
+db/seeds.rb,42
+ROOT = File.expand_path(__dir__)ROOT1,0
+
+db/models/users_permissions_model.rb,447
+class UsersPermission < ActiveRecord::BaseUsersPermission2,0
+  belongs_to :useruser3,0
+  belongs_to :useruser=3,0
+  belongs_to :userbuild_user3,0
+  belongs_to :usercreate_user3,0
+  belongs_to :usercreate_user!3,0
+  belongs_to :permissionpermission4,0
+  belongs_to :permissionpermission=4,0
+  belongs_to :permissionbuild_permission4,0
+  belongs_to :permissioncreate_permission4,0
+  belongs_to :permissioncreate_permission!4,0
+
+db/models/roles_permissions_model.rb,447
+class RolesPermission < ActiveRecord::BaseRolesPermission2,0
+  belongs_to :permissionpermission3,0
+  belongs_to :permissionpermission=3,0
+  belongs_to :permissionbuild_permission3,0
+  belongs_to :permissioncreate_permission3,0
+  belongs_to :permissioncreate_permission!3,0
+  belongs_to :rolerole4,0
+  belongs_to :rolerole=4,0
+  belongs_to :rolebuild_role4,0
+  belongs_to :rolecreate_role4,0
+  belongs_to :rolecreate_role!4,0
+
+db/models/users_courses_model.rb,399
+class UsersCourse < ActiveRecord::BaseUsersCourse2,0
+  belongs_to :useruser3,0
+  belongs_to :useruser=3,0
+  belongs_to :userbuild_user3,0
+  belongs_to :usercreate_user3,0
+  belongs_to :usercreate_user!3,0
+  belongs_to :coursecourse4,0
+  belongs_to :coursecourse=4,0
+  belongs_to :coursebuild_course4,0
+  belongs_to :coursecreate_course4,0
+  belongs_to :coursecreate_course!4,0
+
+db/models/permissions_model.rb,1125
+class Permission < ActiveRecord::BasePermission2,0
+  has_many :users_permissionsusers_permissions3,0
+  has_many :users_permissionsusers_permissions=3,0
+  has_many :users_permissionsusers_permission_ids3,0
+  has_many :users_permissionsusers_permission_ids=3,0
+  has_many :users, through: :users_permissions, dependent: :destroyusers4,0
+  has_many :users, through: :users_permissions, dependent: :destroyusers=4,0
+  has_many :users, through: :users_permissions, dependent: :destroyuser_ids4,0
+  has_many :users, through: :users_permissions, dependent: :destroyuser_ids=4,0
+  has_many :roles_permissionsroles_permissions5,0
+  has_many :roles_permissionsroles_permissions=5,0
+  has_many :roles_permissionsroles_permission_ids5,0
+  has_many :roles_permissionsroles_permission_ids=5,0
+  has_many :roles, through: :roles_permissions, dependent: :destroyroles6,0
+  has_many :roles, through: :roles_permissions, dependent: :destroyroles=6,0
+  has_many :roles, through: :roles_permissions, dependent: :destroyrole_ids6,0
+  has_many :roles, through: :roles_permissions, dependent: :destroyrole_ids=6,0
+
+db/models/topics_model.rb,701
+class Topic < ActiveRecord::BaseTopic2,0
+  belongs_to :coursecourse3,0
+  belongs_to :coursecourse=3,0
+  belongs_to :coursebuild_course3,0
+  belongs_to :coursecreate_course3,0
+  belongs_to :coursecreate_course!3,0
+  has_many :users_topicsusers_topics4,0
+  has_many :users_topicsusers_topics=4,0
+  has_many :users_topicsusers_topic_ids4,0
+  has_many :users_topicsusers_topic_ids=4,0
+  has_many :users, through: :users_topics, dependent: :destroyusers5,0
+  has_many :users, through: :users_topics, dependent: :destroyusers=5,0
+  has_many :users, through: :users_topics, dependent: :destroyuser_ids5,0
+  has_many :users, through: :users_topics, dependent: :destroyuser_ids=5,0
+
+db/models/category_model.rb,185
+class Category < ActiveRecord::BaseCategory2,0
+  has_many :coursescourses3,0
+  has_many :coursescourses=3,0
+  has_many :coursescourse_ids3,0
+  has_many :coursescourse_ids=3,0
+
+db/models/users_model.rb,2024
+class User < ActiveRecord::BaseUser2,0
+  has_many :users_coursesusers_courses4,0
+  has_many :users_coursesusers_courses=4,0
+  has_many :users_coursesusers_course_ids4,0
+  has_many :users_coursesusers_course_ids=4,0
+  has_many :courses, through: :users_courses, dependent: :destroycourses5,0
+  has_many :courses, through: :users_courses, dependent: :destroycourses=5,0
+  has_many :courses, through: :users_courses, dependent: :destroycourse_ids5,0
+  has_many :courses, through: :users_courses, dependent: :destroycourse_ids=5,0
+  has_many :courses, :class_name => :Course, :foreign_key => 'creator_id'courses6,0
+  has_many :courses, :class_name => :Course, :foreign_key => 'creator_id'courses=6,0
+  has_many :courses, :class_name => :Course, :foreign_key => 'creator_id'course_ids6,0
+  has_many :courses, :class_name => :Course, :foreign_key => 'creator_id'course_ids=6,0
+  has_many :users_topicsusers_topics7,0
+  has_many :users_topicsusers_topics=7,0
+  has_many :users_topicsusers_topic_ids7,0
+  has_many :users_topicsusers_topic_ids=7,0
+  has_many :topics, through: :users_topics, dependent: :destroytopics8,0
+  has_many :topics, through: :users_topics, dependent: :destroytopics=8,0
+  has_many :topics, through: :users_topics, dependent: :destroytopic_ids8,0
+  has_many :topics, through: :users_topics, dependent: :destroytopic_ids=8,0
+  has_many :users_permissionsusers_permissions9,0
+  has_many :users_permissionsusers_permissions=9,0
+  has_many :users_permissionsusers_permission_ids9,0
+  has_many :users_permissionsusers_permission_ids=9,0
+  has_many :permissions, through: :users_permissions, dependent: :destroypermissions10,0
+  has_many :permissions, through: :users_permissions, dependent: :destroypermissions=10,0
+  has_many :permissions, through: :users_permissions, dependent: :destroypermission_ids10,0
+  has_many :permissions, through: :users_permissions, dependent: :destroypermission_ids=10,0
+  def self.select_without *columnsselect_without31,0
+
+db/models/users_topics_model.rb,567
+class UserTopic < ActiveRecord::BaseUserTopic2,0
+  belongs_to :useruser3,0
+  belongs_to :useruser=3,0
+  belongs_to :userbuild_user3,0
+  belongs_to :usercreate_user3,0
+  belongs_to :usercreate_user!3,0
+  belongs_to :topictopic4,0
+  belongs_to :topictopic=4,0
+  belongs_to :topicbuild_topic4,0
+  belongs_to :topiccreate_topic4,0
+  belongs_to :topiccreate_topic!4,0
+  belongs_to :coursecourse5,0
+  belongs_to :coursecourse=5,0
+  belongs_to :coursebuild_course5,0
+  belongs_to :coursecreate_course5,0
+  belongs_to :coursecreate_course!5,0
+
+db/models/courses_model.rb,1167
+class Course < ActiveRecord::BaseCourse2,0
+  has_many :users_coursesusers_courses3,0
+  has_many :users_coursesusers_courses=3,0
+  has_many :users_coursesusers_course_ids3,0
+  has_many :users_coursesusers_course_ids=3,0
+  has_many :users, through: :users_courses, dependent: :destroyusers4,0
+  has_many :users, through: :users_courses, dependent: :destroyusers=4,0
+  has_many :users, through: :users_courses, dependent: :destroyuser_ids4,0
+  has_many :users, through: :users_courses, dependent: :destroyuser_ids=4,0
+  belongs_to :user, :class_name => :User, :foreign_key => 'creator_id'user5,0
+  belongs_to :user, :class_name => :User, :foreign_key => 'creator_id'user=5,0
+  belongs_to :user, :class_name => :User, :foreign_key => 'creator_id'build_user5,0
+  belongs_to :user, :class_name => :User, :foreign_key => 'creator_id'create_user5,0
+  belongs_to :user, :class_name => :User, :foreign_key => 'creator_id'create_user!5,0
+  has_many :topics, dependent: :destroytopics6,0
+  has_many :topics, dependent: :destroytopics=6,0
+  has_many :topics, dependent: :destroytopic_ids6,0
+  has_many :topics, dependent: :destroytopic_ids=6,0
+
+db/models/roles_model.rb,541
+class Role < ActiveRecord::BaseRole2,0
+  has_many :roles_permissionsroles_permissions3,0
+  has_many :roles_permissionsroles_permissions=3,0
+  has_many :roles_permissionsroles_permission_ids3,0
+  has_many :roles_permissionsroles_permission_ids=3,0
+  has_many :permissions, through: :roles_permissionspermissions4,0
+  has_many :permissions, through: :roles_permissionspermissions=4,0
+  has_many :permissions, through: :roles_permissionspermission_ids4,0
+  has_many :permissions, through: :roles_permissionspermission_ids=4,0
+
+db/migrate/20180802143803_categories.rb,87
+class Categories < ActiveRecord::Migration[5.2]Categories1,0
+  def changechange2,0
+
+db/migrate/20180804133057_roles_permissions.rb,99
+class RolesPermissions < ActiveRecord::Migration[5.2]RolesPermissions1,0
+  def changechange2,0
+
+db/migrate/20180802143804_courses.rb,81
+class Courses < ActiveRecord::Migration[5.2]Courses1,0
+  def changechange2,0
+
+db/migrate/20180802171421_users_courses.rb,91
+class UsersCourses < ActiveRecord::Migration[5.2]UsersCourses1,0
+  def changechange2,0
+
+db/migrate/20180802143805_permissions.rb,89
+class Permissions < ActiveRecord::Migration[5.2]Permissions1,0
+  def changechange2,0
+
+db/migrate/20180802143801_users.rb,77
+class Users < ActiveRecord::Migration[5.2]Users1,0
+  def changechange2,0
+
+db/migrate/20180804100555_users_permissions.rb,99
+class UsersPermissions < ActiveRecord::Migration[5.2]UsersPermissions1,0
+  def changechange2,0
+
+db/migrate/20180802143806_roles.rb,77
+class Roles < ActiveRecord::Migration[5.2]Roles1,0
+  def changechange2,0
+
+db/migrate/20180802143807_topics.rb,79
+class Topics < ActiveRecord::Migration[5.2]Topics1,0
+  def changechange2,0
+
+db/migrate/20180802173646_users_topics.rb,89
+class UsersTopics < ActiveRecord::Migration[5.2]UsersTopics1,0
+  def changechange2,0
+
+db/seeds/role_seed.rb,82
+def get_permissionsget_permissions1,0
+def create_roles(roles)create_roles23,0

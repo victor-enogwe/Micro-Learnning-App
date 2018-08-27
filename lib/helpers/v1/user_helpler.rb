@@ -3,10 +3,12 @@ module Sinatra
   # user Helper class
   module UserHelper
     def validate_create_user_params(required = true)
-      param :fname, String, required: required, format: /[A-Za-z]{2,20}/
-      param :lname, String, required: required, format: /[A-Za-z]{2,20}/
+      password = 'password must be alphanumeric 7-20 characters'
+      name = 'name must be 2-20 alphabets long'
+      param :fname, String, required: required, format: /[A-Za-z]{2,20}/, message: name
+      param :lname, String, required: required, format: /[A-Za-z]{2,20}/, message: name
       param :email, String, required: required, format: URI::MailTo::EMAIL_REGEXP
-      param :password, String, required: required, format: /[A-Za-z]{7,20}/
+      param :password, String, required: required, format: /[A-Za-z0-9]{7,20}/, message: password
     end
 
     def create_user(user)
@@ -24,7 +26,7 @@ module Sinatra
     # route methods
     def register_user
       validate_create_user_params
-      user = create_user JSON.parse request.body.read
+      user = create_user ::JSON.parse request.body.read
       { status: 'success', data: { user: user } }.to_json
     end
 

@@ -15,12 +15,24 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["description"], name: "index_categories_on_description"
+    t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
   create_table "courses", force: :cascade do |t|
+    t.bigint "category_id", null: false
     t.bigint "creator_id", null: false
     t.string "title", null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["creator_id"], name: "index_courses_on_creator_id"
     t.index ["title"], name: "index_courses_on_title"
   end
 
@@ -42,12 +54,15 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string "name", null: false
+    t.bigint "course_id", null: false
+    t.string "title", null: false
     t.string "description", null: false
     t.string "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_topics_on_name"
+    t.index ["course_id"], name: "index_topics_on_course_id"
+    t.index ["description"], name: "index_topics_on_description"
+    t.index ["title"], name: "index_topics_on_title"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,9 +81,15 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
     t.bigint "user_id", null: false
     t.bigint "course_id", null: false
     t.datetime "registration_date", null: false
+    t.integer "learning_interval_days", default: 2, null: false
+    t.integer "daily_delivery_time", default: 24, null: false
+    t.datetime "last_sent_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_users_courses_on_course_id"
+    t.index ["daily_delivery_time"], name: "index_users_courses_on_daily_delivery_time"
+    t.index ["last_sent_time"], name: "index_users_courses_on_last_sent_time"
+    t.index ["learning_interval_days"], name: "index_users_courses_on_learning_interval_days"
     t.index ["user_id"], name: "index_users_courses_on_user_id"
   end
 
@@ -80,16 +101,26 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
   end
 
   create_table "users_topics", force: :cascade do |t|
-    t.bigint "courses_id"
-    t.bigint "topics_id"
-    t.bigint "users_id", null: false
     t.bigint "course_id", null: false
     t.bigint "topic_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["courses_id"], name: "index_users_topics_on_courses_id"
-    t.index ["topics_id"], name: "index_users_topics_on_topics_id"
-    t.index ["users_id"], name: "index_users_topics_on_users_id"
+    t.index ["course_id"], name: "index_users_topics_on_course_id"
+    t.index ["topic_id"], name: "index_users_topics_on_topic_id"
+    t.index ["user_id"], name: "index_users_topics_on_user_id"
   end
 
+  add_foreign_key "courses", "categories"
+  add_foreign_key "courses", "users", column: "creator_id"
+  add_foreign_key "roles_permissions", "permissions", on_delete: :cascade
+  add_foreign_key "roles_permissions", "roles", on_delete: :cascade
+  add_foreign_key "topics", "courses", on_delete: :cascade
+  add_foreign_key "users_courses", "courses", on_delete: :cascade
+  add_foreign_key "users_courses", "users", on_delete: :cascade
+  add_foreign_key "users_permissions", "permissions", on_delete: :cascade
+  add_foreign_key "users_permissions", "users", on_delete: :cascade
+  add_foreign_key "users_topics", "courses", on_delete: :cascade
+  add_foreign_key "users_topics", "topics", on_delete: :cascade
+  add_foreign_key "users_topics", "users", on_delete: :cascade
 end

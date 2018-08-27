@@ -1,7 +1,10 @@
 doctype html
 html.transition-navbar-scroll.top-navbar-xlarge.bottom-footer lang="en"
   == slim :'layouts/header'
-  body
-    == slim :'layouts/nav'
-    = yield
+  body#app
+    .navbar.navbar-default.navbar-fixed-top.navbar-size-large.navbar-size-xlarge.paper-shadow data-animated="" data-z="0" role="navigation"
+    #content
+      .container
+        .page-section
+          #main.row
     == slim :'layouts/footer'

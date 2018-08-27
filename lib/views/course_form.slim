@@ -1,0 +1,23 @@
+script#course_page type="text/html"
+  .col-md-12
+      /! Tabbable Widget
+      .tabbable.paper-shadow.relative data-z="0.5"
+        /! Tabs
+        ul.nav.nav-tabs role="tablist"
+          li.active
+            a.prev_course href="#course" aria-controls="course" role="tab" data-toggle="tab"
+              i.fa.fa-fw.fa-book
+              span.hidden-sm.hidden-xs Course
+          li style="display: <%= display %>"
+            a.next_topic href="#topics" aria-controls="topics" role="tab" data-toggle="tab"
+              i.fa.fa-fw.fa-folder-o
+              span.hidden-sm.hidden-xs Topics
+          button#new_topic.btn.btn-default.pull-right style="display: none"
+            i.fa.fa-fw.fa-plus
+            | Add New Topic
+          form#course_form.tab-content
+            #course.tab-pane.active data-fields="title,category_id,description"
+            #topics.tab-pane
+              .panel-group
+            button.btn.btn-white.prev_tab disabled="true" Prev
+            button.btn.btn-primary.next_tab.pull-right Save
