@@ -20,7 +20,7 @@ gem 'sinatra-param'
 gem 'slim'
 
 group :development do
-  gem 'sinatra-contrib'
+  gem 'shotgun'
   gem 'rubocop'
   gem 'ruby-prof'
 end

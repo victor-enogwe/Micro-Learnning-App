@@ -24,11 +24,12 @@ Dir.glob(File
 Dir.glob(File
     .join(APP_ROOT, 'lib', 'routes', '*.rb')).each { |file| require file }
 
-require './lib/micro_learn_api'
 require './lib/micro_learn'
+require './lib/micro_learn_api'
+require './lib/micro_learn_api_auth'
 
 use Rack::Profiler if ENV['RACK_ENV'] == 'development'
 use Rack::ETag
 use Rack::BounceFavicon
 
-run Rack::URLMap.new '/' => MicroLearn, '/api/v1' => MicroLearnApi
+run Rack::URLMap.new '/' => MicroLearn, '/api/v1' => MicroLearnApi, '/api/v1/auth' => MicroLearnApiAuth

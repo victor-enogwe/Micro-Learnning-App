@@ -6,7 +6,7 @@ require 'jwt'
 require 'rack'
 
 # micro learning class
-class MicroLearnApi < Sinatra::Base
+class MicroLearnApiAuth < Sinatra::Base
   configure :development, :test do
     Dotenv.overload
   end
@@ -22,13 +22,14 @@ class MicroLearnApi < Sinatra::Base
 
   before do
     request.path_info.chomp!('/')
-    request.body.rewind
     content_type :json
+    request.body.rewind
     params[:id] = params[:id].to_i if params[:id]
     params[:category_id] = params[:category_id].to_i if params[:category_id]
   end
 
   use ErrorHandler
+  use JwtAuth
 
   helpers Sinatra::Param
   helpers Sinatra::PermissionHelper
@@ -38,5 +39,5 @@ class MicroLearnApi < Sinatra::Base
   helpers Sinatra::CourseHelper
 
   register Sinatra::ActiveRecordExtension
-  register Sinatra::ApiRoutes
+  register Sinatra::ApiAuthRoutes
 end

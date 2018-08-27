@@ -1,31 +1,11 @@
-#content
-  .container-fluid
+script#register type="text/html"
+  .col.col-centered.col-md-8.col-sm-12.register-div
     .lock-container
-      .panel.panel-default.text-center.paper-shadow data-z="0.5"
-        h1.text-display-1 Create account
+      .panel.panel-default.paper-shadow data-z="0.5"
+        h1.text-display-1.text-center Create account
         .panel-body
-          /! Signup
-          form action="index.html" role="form"
-            .form-group
-              .form-control-material
-                input#firstName.form-control placeholder=("First Name") type="text" /
-                label for="firstName"  First name
-            .form-group
-              .form-control-material
-                input#lastName.form-control placeholder=("Last Name") type="text" /
-                label for="lastName"  Last name
-            .form-group
-              .form-control-material
-                input#email.form-control placeholder="Email" type="email" /
-                label for="email"  Email address
-            .form-group
-              .form-control-material
-                input#password.form-control placeholder="Password" type="password" /
-                label for="password"  Password
-            .form-group
-              .form-control-material
-                input#passwordConfirmation.form-control placeholder=("Password Confirmation") type="password" /
-                label for="passwordConfirmation"  Re-type password
-            .text-center
-              button.btn.btn-primary Create an Account
-          /! //Signup
+          form#register-form
+            div data-fields="fname,lname,email,password,password_confirmation"
+            .row-fluid
+              .col-md-12
+                button#submit.btn.btn-primary.btn-block Create an Account

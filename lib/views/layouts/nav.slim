@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-fixed-top.navbar-size-large.navbar-size-xlarge.paper-shadow data-animated="" data-z="0" role="navigation"
+script#navbar type="text/html"
   .container
     .navbar-header
       button.navbar-toggle.collapsed data-target="#main-nav" data-toggle="collapse" type="button"
@@ -7,7 +7,7 @@
         span.icon-bar
         span.icon-bar
       .navbar-brand.navbar-brand-logo
-        a.svg href="/"
+        a.svg.link href="/"
           svg[xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="104.42541384066001" height="58" style=""]
             rect#backgroundrect[width="100%" height="100%" x="0" y="0" fill="none" stroke="none" style=""]
             metadata
@@ -35,35 +35,21 @@
     #main-nav.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-nav-margin-left
         li.active
-          a  href="/courses"
+          a.link  href="/courses"
             | Courses
         li
-          a href="/about"
+          a.link href="/about"
             | How It Works
       .navbar-right
-        ul.nav.navbar-nav.navbar-nav-bordered.navbar-nav-margin-right
-          /! user
-          li.dropdown.user
-            a.dropdown-toggle data-toggle="dropdown" href="#"
-              | User
-              span.caret
-            ul.dropdown-menu role="menu"
-              li
-                a href="/dashboard"
-                  i.fa.fa-bar-chart-o
-                  | Dashboard
-              li
-                a href="/my-courses"
-                  i.fa.fa-mortar-board
-                  | My Courses
-              li
-                a href="/settings"
-                  i.fa.fa-cog
-                  | Settings
-              li
-                a href="/login"
-                  i.fa.fa-sign-out
-                  | Logout
-          /! // END user
-        a.navbar-btn.btn.btn-primary href="/login"  Log In
+        ul.nav.navbar-nav.navbar-nav-bordered.navbar-nav-margin-right style="<%= authed ? '' : 'display: none' %>"
+          li
+            a.link href="/dashboard"
+              | Dashboard
+          li
+            a.link href="/dashboard/my-courses"
+              | My Courses
+          li
+            a.link href="/dashboard/settings"
+              | Settings
+        a.navbar-btn.btn.btn-default.link id="<%=  authed ? 'logout' : '' %>" href="<%= authed ? '#' : '/login' %>"  <%= authed ? 'Logout' : 'Login'%>
     /! /.navbar-collapse

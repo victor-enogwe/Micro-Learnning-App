@@ -1,23 +1,15 @@
-#content
-  .container
-    .row.justify-content-md-center
-      .col.col-centered.col-md-4.lock-container.col-login
-        .panel.panel-default.text-center.paper-shadow data-z="0.5"
-          h1.text-display-1.text-center.margin-bottom-none Sign In
-          img.img-circle.width-80 src="images/people/110/guy-5.jpg" /
-          .error
-          .panel-body
-            form#login onsubmit="login(); return false;"
-              .form-group
-                .form-control-material
-                  input#email.form-control placeholder="Email" type="email" /
-                  label for="email"  Email
-              .form-group
-                .form-control-material
-                  input#password.form-control placeholder=("Enter Password") type="password" /
-                  label for="password"  Password
-              button.btn.btn-primary.btn.form-control
+script#login type="text/html"
+  .col.col-centered.col-md-6.lock-container.col-login
+    .panel.panel-default.paper-shadow data-z="0.5"
+      h1.text-display-1.text-center.margin-bottom-none Sign In
+      .panel-body
+        form#login-form
+          div data-fields="email"
+          div data-fields="password"
+          .row-fluid
+            .col-md-12
+              button#submit.btn.btn-primary.btn-block
                 | Login
                 i.fa.fa-fw.fa-unlock-alt
-            a.forgot-password href="#"  Forgot password?
-            a.link-text-color href="register"  Create account
+              a.forgot-password.link href="/forgot-password"  Forgot password?
+              a.link-text-color.link href="/register"  Create account

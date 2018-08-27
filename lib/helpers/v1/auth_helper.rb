@@ -9,7 +9,7 @@ module Sinatra
         token = create_token payload user
         { status: 'success', data: { token: token } }.to_json
       else
-        halt 401, { status: 'error', error: 'invalid login' }.to_json
+        halt 401, { status: 'error', message: 'invalid login' }.to_json
       end
     end
 
