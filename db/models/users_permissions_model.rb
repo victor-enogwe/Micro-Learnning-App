@@ -1,5 +1,5 @@
 # User Permission model
-class UsersPermission < ActiveRecord::Base
+class UserPermission < ActiveRecord::Base
   belongs_to :user
   belongs_to :permission
 end

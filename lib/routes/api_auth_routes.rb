@@ -18,6 +18,7 @@ module Sinatra
     end
 
     def self.course_topics_routes(app)
+      app.get('/courses/:course_id/topics/:topic_id') { find_course_topic }
       app.post('/courses/:course_id/topics') { create_course_topic }
       app.put('/courses/:course_id/topics/:topic_id') { update_course_topic }
       app.delete('/courses/:course_id/topics/:topic_id') { delete_course_topic }
@@ -37,9 +38,10 @@ module Sinatra
 
     def self.user_courses_routes(app)
       app.get('/users/:user_id/courses') { find_user_courses }
-      app.get('/users/:user_id/courses/:course_id') { find_user_course }
-      app.post('/users/:user_id/courses') { add_user_course }
-      app.delete('/users/:user_id/courses') { delete_user_courses }
+      app.get('/users/:user_id/courses/:course_id/usercourses') { find_user_course }
+      app.post('/users/:user_id/courses/:course_id/usercourses') { add_user_course }
+      app.put('/users/:user_id/courses/:course_id/usercourses/:user_course_id') { update_user_course }
+      app.delete('/users/:user_id/courses/:course_id/usercourses/:user_course_id') { delete_user_course }
     end
 
     def self.category_routes(app)

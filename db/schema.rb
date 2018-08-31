@@ -41,16 +41,16 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
     t.index ["name"], name: "index_permissions_on_name", unique: true
   end
 
+  create_table "role_permissions", force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "permission_id", null: false
+    t.index ["permission_id"], name: "index_role_permissions_on_permission_id"
+    t.index ["role_id"], name: "index_role_permissions_on_role_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
     t.index ["name"], name: "index_roles_on_name", unique: true
-  end
-
-  create_table "roles_permissions", force: :cascade do |t|
-    t.bigint "role_id", null: false
-    t.bigint "permission_id", null: false
-    t.index ["permission_id"], name: "index_roles_permissions_on_permission_id"
-    t.index ["role_id"], name: "index_roles_permissions_on_role_id"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -65,6 +65,40 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
     t.index ["title"], name: "index_topics_on_title"
   end
 
+  create_table "user_courses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "course_id", null: false
+    t.datetime "registration_date", null: false
+    t.integer "learning_interval_days", default: 2, null: false
+    t.integer "daily_delivery_time", default: 24, null: false
+    t.datetime "last_sent_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_user_courses_on_course_id"
+    t.index ["daily_delivery_time"], name: "index_user_courses_on_daily_delivery_time"
+    t.index ["last_sent_time"], name: "index_user_courses_on_last_sent_time"
+    t.index ["learning_interval_days"], name: "index_user_courses_on_learning_interval_days"
+    t.index ["user_id"], name: "index_user_courses_on_user_id"
+  end
+
+  create_table "user_permissions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "permission_id", null: false
+    t.index ["permission_id"], name: "index_user_permissions_on_permission_id"
+    t.index ["user_id"], name: "index_user_permissions_on_user_id"
+  end
+
+  create_table "user_topics", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "topic_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_user_topics_on_course_id"
+    t.index ["topic_id"], name: "index_user_topics_on_topic_id"
+    t.index ["user_id"], name: "index_user_topics_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "fname", null: false
     t.string "lname", null: false
@@ -77,50 +111,16 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
     t.index ["lname"], name: "index_users_on_lname"
   end
 
-  create_table "users_courses", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "course_id", null: false
-    t.datetime "registration_date", null: false
-    t.integer "learning_interval_days", default: 2, null: false
-    t.integer "daily_delivery_time", default: 24, null: false
-    t.datetime "last_sent_time", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_users_courses_on_course_id"
-    t.index ["daily_delivery_time"], name: "index_users_courses_on_daily_delivery_time"
-    t.index ["last_sent_time"], name: "index_users_courses_on_last_sent_time"
-    t.index ["learning_interval_days"], name: "index_users_courses_on_learning_interval_days"
-    t.index ["user_id"], name: "index_users_courses_on_user_id"
-  end
-
-  create_table "users_permissions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "permission_id", null: false
-    t.index ["permission_id"], name: "index_users_permissions_on_permission_id"
-    t.index ["user_id"], name: "index_users_permissions_on_user_id"
-  end
-
-  create_table "users_topics", force: :cascade do |t|
-    t.bigint "course_id", null: false
-    t.bigint "topic_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_users_topics_on_course_id"
-    t.index ["topic_id"], name: "index_users_topics_on_topic_id"
-    t.index ["user_id"], name: "index_users_topics_on_user_id"
-  end
-
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "users", column: "creator_id"
-  add_foreign_key "roles_permissions", "permissions", on_delete: :cascade
-  add_foreign_key "roles_permissions", "roles", on_delete: :cascade
+  add_foreign_key "role_permissions", "permissions", on_delete: :cascade
+  add_foreign_key "role_permissions", "roles", on_delete: :cascade
   add_foreign_key "topics", "courses", on_delete: :cascade
-  add_foreign_key "users_courses", "courses", on_delete: :cascade
-  add_foreign_key "users_courses", "users", on_delete: :cascade
-  add_foreign_key "users_permissions", "permissions", on_delete: :cascade
-  add_foreign_key "users_permissions", "users", on_delete: :cascade
-  add_foreign_key "users_topics", "courses", on_delete: :cascade
-  add_foreign_key "users_topics", "topics", on_delete: :cascade
-  add_foreign_key "users_topics", "users", on_delete: :cascade
+  add_foreign_key "user_courses", "courses", on_delete: :cascade
+  add_foreign_key "user_courses", "users", on_delete: :cascade
+  add_foreign_key "user_permissions", "permissions", on_delete: :cascade
+  add_foreign_key "user_permissions", "users", on_delete: :cascade
+  add_foreign_key "user_topics", "courses", on_delete: :cascade
+  add_foreign_key "user_topics", "topics", on_delete: :cascade
+  add_foreign_key "user_topics", "users", on_delete: :cascade
 end

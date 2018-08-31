@@ -1,0 +1,74 @@
+script#course type="text/html"
+  .col-md-12.media.v-middle
+    .media-body
+      h1.text-display-1.margin-none
+        | <%= course.title %>
+      p.text-subhead
+        a.btn.btn-default.btn-xs.link href="/courses/categories/<%=course.category.id%>"
+          | <%= course.category.name %>
+    .media-right
+      a.btn.btn-white.link.hidden-xs href="/courses" Library
+  .col-lg-9.col-md-8
+    .page-section
+      p
+        strong
+        | <%= course.description%>
+    .page-section
+      .row
+        .col-md-12
+          h2.text-headline.margin-none What you'll learn
+          ul.list-group.relative.paper-shadow data-animated="" data-hover-z="0.5"
+            <% _.each(course.topics, function(topic) {%>
+            li.list-group-item
+              .media.v-middle
+                .media-left
+                  .icon-block.s30.bg-indigo-300.text-white.img-circle
+                    i.fa.fa-list
+                .media-body.text-body-2
+                  | <%= topic.title%>
+            <%})%>
+  .col-lg-3.col-md-4
+    .page-section
+      /! .panel
+      .panel.panel-default.paper-shadow data-animated="" data-hover-z="1" data-z="0.5"
+        .panel-heading
+          h4.text-headline
+            | Enrol
+            <% if(user_course && user_course.id) {%>
+            button#stop_course.btn.btn-xs.btn-danger.pull-right
+              | stop course
+            <%}%>
+        .panel-body
+          p.text-caption
+            i.fa.fa-calendar.fa-fw
+            | Updated: <%= new Date(course.created_at).toUTCString()%>
+            br/
+            i.fa.fa-user.fa-fw
+            | Instructor: <%= capitalize(course.creator.name)%>
+            br/
+            <% if(user_course) {%>
+            i.fa.fa-check.fa-fw
+            | Enrolled On: <%= new Date(user_course.registration_date).toUTCString()%>
+            br
+            i.fa.fa-calendar.fa-fw
+            | Topics Sent Every: <%= user_course.learning_interval_days + 'day(s)'%>
+            br
+            i.fa.fa-clock-o.fa-fw
+            | Delivered At: <%= user_course.daily_delivery_time + ':00 o\'clock'%>
+            <%}%>
+        hr.margin-none/
+        <% if(!equality(course.creator.id, user.id) && course.topics.length) {%>
+        .panel-body.text-center
+          button#enrol.btn.btn-block.btn-success.btn-lg.paper-shadow.relative data-animated="" data-hover-z="2" data-z="1"
+            | <%= user_course && user_course.id ? 'Update Enrolment Details' : 'Start Course' %>
+        <%}%>
+        ul.list-group
+          li.list-group-item
+            a.text-light href="#"
+              i.fa.fa-facebook.fa-fw
+              | Share on facebook
+          li.list-group-item
+            a.text-light href="#"
+              i.fa.fa-twitter.fa-fw
+              | Tweet this course
+

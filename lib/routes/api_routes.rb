@@ -15,9 +15,8 @@ module Sinatra
     end
 
     def self.routes_one(app)
+      app.get('/courses') { find_courses }
       app.get('/courses/:course_id') { find_course }
-      app.get('/courses/:course_id/topics') { find_course_topics }
-      app.get('/courses/:course_id/topics/:topic_id') { find_course_topic }
       app.get('/categories') { find_categories }
       app.get('/categories/:category_id') { find_category }
     end

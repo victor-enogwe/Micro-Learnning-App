@@ -37,19 +37,14 @@ script#navbar type="text/html"
         li.active
           a.link  href="/courses"
             | Courses
-        li
-          a.link href="/about"
-            | How It Works
       .navbar-right
-        ul.nav.navbar-nav.navbar-nav-bordered.navbar-nav-margin-right style="<%= authed ? '' : 'display: none' %>"
+        <% if(authed) {%>
+        ul.nav.navbar-nav.navbar-nav-bordered.navbar-nav-margin-right
           li
             a.link href="/dashboard"
               | Dashboard
           li
             a.link href="/dashboard/my-courses"
               | My Courses
-          li
-            a.link href="/dashboard/settings"
-              | Settings
+        <%}%>
         a.navbar-btn.btn.btn-default.link id="<%=  authed ? 'logout' : '' %>" href="<%= authed ? '#' : '/login' %>"  <%= authed ? 'Logout' : 'Login'%>
-    /! /.navbar-collapse

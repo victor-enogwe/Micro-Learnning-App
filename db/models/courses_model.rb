@@ -1,7 +1,8 @@
 # Courses model
 class Course < ActiveRecord::Base
-  has_many :users_courses
-  has_many :users, through: :users_courses, dependent: :destroy
+  has_many :user_courses
+  has_many :users, through: :user_courses, dependent: :destroy
+  belongs_to :category
   belongs_to :user, :class_name => :User, :foreign_key => 'creator_id'
   has_many :topics, dependent: :destroy
 
@@ -18,4 +19,16 @@ class Course < ActiveRecord::Base
   validates :description,
     :presence => { message: 'description required '},
     :length => { in: 50..1000, message: description_message }
+
+  def as_json(options = {})
+    super.tap do |hash|
+      if options[:include]
+        if options[:include].include? :'user'
+          fname, lname, id = hash['user'].values_at 'fname', 'lname', 'id'
+          hash[:creator] = { name: "#{fname} #{lname}", id: id }
+          hash.delete 'user'
+        end
+      end
+    end
+  end
 end

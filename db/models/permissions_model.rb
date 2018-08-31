@@ -1,9 +1,9 @@
 # Permission class model
 class Permission < ActiveRecord::Base
-  has_many :users_permissions
-  has_many :users, through: :users_permissions, dependent: :destroy
-  has_many :roles_permissions
-  has_many :roles, through: :roles_permissions, dependent: :destroy
+  has_many :user_permissions
+  has_many :users, through: :user_permissions, dependent: :destroy
+  has_many :role_permissions
+  has_many :roles, through: :role_permissions, dependent: :destroy
 
   name_message = 'permission must have a unique name'
   name_length_message = 'permission name must be 2-20 alphabetic characters'
