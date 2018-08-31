@@ -35,16 +35,16 @@ script#navbar type="text/html"
     #main-nav.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-nav-margin-left
         li.active
-          a.link  href="courses"
+          a.link  href="/courses"
             | Courses
       .navbar-right
         <% if(authed) {%>
         ul.nav.navbar-nav.navbar-nav-bordered.navbar-nav-margin-right
           li
-            a.link href="dashboard"
+            a.link href="/dashboard"
               | Dashboard
           li
-            a.link href="dashboard/my-courses"
+            a.link href="/dashboard/my-courses"
               | My Courses
         <%}%>
-        a.navbar-btn.btn.btn-default.link id="<%=  authed ? 'logout' : '' %>" href="<%= authed ? '#' : 'login' %>"  <%= authed ? 'Logout' : 'Login'%>
+        a.navbar-btn.btn.btn-default.link id="<%=  authed ? 'logout' : '' %>" href="<%= authed ? '#' : '/login' %>"  <%= authed ? 'Logout' : 'Login'%>

@@ -4,10 +4,10 @@ script#course type="text/html"
       h1.text-display-1.margin-none
         | <%= course.title %>
       p.text-subhead
-        a.btn.btn-default.btn-xs.link href="<%= window.location.href%>courses/categories/<%=course.category.id%>"
+        a.btn.btn-default.btn-xs.link href="/courses/categories/<%=course.category.id%>"
           | <%= course.category.name %>
     .media-right
-      a.btn.btn-white.link.hidden-xs href="<%= window.location.href%>courses" Library
+      a.btn.btn-white.link.hidden-xs href="courses" Library
   .col-lg-9.col-md-8
     .page-section
       p

@@ -25,5 +25,5 @@ script#course_page type="text/html"
             <% if(user.permissions.includes('delete_course')) {%>
             button#delete_course.btn.btn-xs.btn-danger.pull-right style="margin-right: 10px" Delete
             <%}%>
-            a.btn.btn-default.btn-xs.pull-right.link style="margin-right: 10px" href="<%= window.location.href%>courses/<%= display%>" View
+            a.btn.btn-default.btn-xs.pull-right.link style="margin-right: 10px" href="/courses/<%= display%>" View
             <%}%>
