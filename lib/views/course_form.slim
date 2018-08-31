@@ -19,5 +19,11 @@ script#course_page type="text/html"
             #course.tab-pane.active data-fields="title,category_id,description"
             #topics.tab-pane
               .panel-group
-            button.btn.btn-white.prev_tab disabled="true" Prev
-            button.btn.btn-primary.next_tab.pull-right Save
+            button.btn.btn-white.prev_tab.btn-xs disabled="true" Prev
+            button.btn.btn-primary.next_tab.btn-xs.pull-right Save
+            <% if(display) {%>
+            <% if(user.permissions.includes('delete_course')) {%>
+            button#delete_course.btn.btn-xs.btn-danger.pull-right style="margin-right: 10px" Delete
+            <%}%>
+            a.btn.btn-default.btn-xs.pull-right.link style="margin-right: 10px" href="/courses/<%= display%>" View
+            <%}%>

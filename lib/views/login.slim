@@ -6,10 +6,11 @@ script#login type="text/html"
         form#login-form
           div data-fields="email"
           div data-fields="password"
-          .row-fluid
+          .row
             .col-md-12
               button#submit.btn.btn-primary.btn-block
                 | Login
                 i.fa.fa-fw.fa-unlock-alt
-              a.forgot-password.link href="/forgot-password"  Forgot password?
-              a.link-text-color.link href="/register"  Create account
+            .col-md-12.text-center
+              a.forgot-password.text-center.link href="/forgot-password"  Forgot password?
+              a.link-text-color.text-center.link href="/register"  Create account

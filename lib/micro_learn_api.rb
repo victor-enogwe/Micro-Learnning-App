@@ -1,4 +1,4 @@
-require 'dotenv'
+require 'dotenv' if ENV['RACK_ENV'] == 'development'
 require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'sinatra/param'

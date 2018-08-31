@@ -1,8 +1,8 @@
 # Topic model
 class Topic < ActiveRecord::Base
   belongs_to :course
-  has_many :users_topics
-  has_many :users, through: :users_topics, dependent: :destroy
+  has_many :user_topics
+  has_many :users, through: :user_topics, dependent: :destroy
 
   title_message = 'Title must be 5-100 characters and alphanumeric.'
   description_message = 'Description must be 50-1000 characters long.'

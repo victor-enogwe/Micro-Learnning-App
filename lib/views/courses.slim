@@ -1,12 +1,54 @@
 script#courses type="text/html"
-      .media.v-middle
-        .media-body
-          h1.text-display-1.margin-none Library
-          p.text-subhead Browse through thousands of courses.
-        .media-right
-          .width-100.text-right
-            .btn-group
-              a.btn.btn-white href="#"
-                i.fa.fa-th
-              a.btn.btn-grey-800 href="#"
-                i.fa.fa-list
+  .col-md-12.media.v-middle
+    .media-body
+      h1.text-display-1.margin-none
+        | <%= name.title %>
+      p.text-subhead
+        | <%= name.description %>
+    .media-right
+      .width-100.text-right.form-group
+        select#categories.selectpicker.form-control
+          <% _.each(categories, function(category) { %>
+          <option value="<%= category.id%>" <%= equality(+categoryId, +category.id) ? 'selected' : ''%>><%=category.name.toUpperCase()%></option>
+          <%})%>
+  .col-md-12
+    <% if(courses.length) {%>
+    #course_list.row-fluid
+      <% _.each(courses, function(course) { %>
+      .col-md-12.panel.panel-default.paper-shadow data-z="0.5"
+        .panel-body
+          .media.media-clearfix-xs
+            .media-body
+              h4.text-headline.margin-v-5-0
+                a.link href="/courses/<%=course.id%>"
+                  | <%= course.title%>
+              p.small
+                a.btn.btn-default.btn-xs.link href="/courses/categories/<%= course.category.id%>"
+                  | <%= course.category.name%>
+              p
+                | <%= course.description%>
+              hr.margin-v-8/
+              .row
+                .col-md-12
+                  .media.v-middle
+                    .media-body
+                      div style="display: inline-block"
+                        h4 style="line-height: 0"
+                          a.link href="/courses/authors/<%= course.creator.id%>"
+                            |  <%= course.creator.name %>
+                            br/
+                        | Instructor
+                      a.btn.btn-primary.pull-right.link href="/courses/<%=course.id%>" View Course
+                      <% if(equality(creatorId, course.creator.id)) {%>
+                      a.btn.btn-default.pull-right.link href="/dashboard/courses/<%=course.id%>" style="margin-right: 10px" Edit Course
+                      <%}%>
+      <% }) %>
+      .col-md-12.text-center style="margin-top: 10px"
+        <%if (page > 0) {%>
+        #load_more_prev.btn.btn-default LOAD PREV COURSES
+        <% }%>
+        <% if ((count / 5 > page + 1) && ((page + 1) * 5 < count)) {%>
+        #load_more_next.btn.btn-primary.next_tab LOAD NEXT COURSES
+        <% }%>
+    <% }%>
+
