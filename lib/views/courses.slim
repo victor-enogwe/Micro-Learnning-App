@@ -20,10 +20,10 @@ script#courses type="text/html"
           .media.media-clearfix-xs
             .media-body
               h4.text-headline.margin-v-5-0
-                a.link href="courses/<%=course.id%>"
+                a.link href="<%= window.location.href%>courses/<%=course.id%>"
                   | <%= course.title%>
               p.small
-                a.btn.btn-default.btn-xs.link href="courses/categories/<%= course.category.id%>"
+                a.btn.btn-default.btn-xs.link href="<%= window.location.href%>courses/categories/<%= course.category.id%>"
                   | <%= course.category.name%>
               p
                 | <%= course.description%>
@@ -34,13 +34,13 @@ script#courses type="text/html"
                     .media-body
                       div style="display: inline-block"
                         h4 style="line-height: 0"
-                          a.link href="courses/authors/<%= course.creator.id%>"
+                          a.link href="<%= window.location.href%>courses/authors/<%= course.creator.id%>"
                             |  <%= course.creator.name %>
                             br/
                         | Instructor
-                      a.btn.btn-primary.pull-right.link href="courses/<%=course.id%>" View Course
+                      a.btn.btn-primary.pull-right.link href="<%= window.location.href%>courses/<%=course.id%>" View Course
                       <% if(equality(creatorId, course.creator.id)) {%>
-                      a.btn.btn-default.pull-right.link href="dashboard/courses/<%=course.id%>" style="margin-right: 10px" Edit Course
+                      a.btn.btn-default.pull-right.link href="<%= window.location.href%>dashboard/courses/<%=course.id%>" style="margin-right: 10px" Edit Course
                       <%}%>
       <% }) %>
       .col-md-12.text-center style="margin-top: 10px"
