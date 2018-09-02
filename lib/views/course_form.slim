@@ -8,10 +8,12 @@ script#course_page type="text/html"
             a.prev_course href="#course" aria-controls="course" role="tab" data-toggle="tab"
               i.fa.fa-fw.fa-book
               span.hidden-sm.hidden-xs Course
-          li style="display: <%= display %>"
+          <% if (display) {%>
+          li
             a.next_topic href="#topics" aria-controls="topics" role="tab" data-toggle="tab"
               i.fa.fa-fw.fa-folder-o
               span.hidden-sm.hidden-xs Topics
+          <%}%>
           button#new_topic.btn.btn-default.pull-right style="display: none"
             i.fa.fa-fw.fa-plus
             | Add New Topic

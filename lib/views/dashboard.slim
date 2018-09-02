@@ -1,13 +1,73 @@
 script#dashboard type="text/html"
+  .col-md-12 style="margin-bottom: 40px"
+    .media.v-middle
+      .media-left.text-center
+        a href="#"
+          img.img-circle.width-80 alt="people" src="https://api.adorable.io/avatars/80/abott@adorable.png" /
+      .media-body
+        h1.text-green.text-display-1.margin-v-0
+          | Howdy!
+        p.text-subhead
+          | <%= formatName(fullname)%>
+      .media-right
+        span.label.bg-blue-500
+          | <%= permissions.includes('manage_users') ? 'Admin' : (permissions.includes('create_course') ? 'Instructor' : 'Student')%>
+  <%if (!permissions.includes('create_course')) {%>
   .col-md-12
+    .panel.panel-default
+      .media.v-middle
+        .media-left
+          .bg-green-400.text-white
+            .panel-body
+              i.fa.fa-credit-card.fa-fw.fa-2x
+        .media-body.hidden-xs
+          | Teach others what you know.
+          span.text-body-2 &nbsp;Pass that knowledge along!
+        .media-right.media-padding
+          a.btn.btn-white.paper-shadow.relative data-animated="" data-hover-z="1" data-z="0.5" href="#"
+            | Become An Instructor
+  <%}%>
+  .col-md-12
+    .panel.panel-default data-open="false" data-toggle="panel-collapse"
+      .panel-heading.panel-collapse-trigger.collapse.in.collapsed aria-expanded="false" data-target="#c80cb3d6-50d2-b9b8-675c-1fd7385c310a" data-toggle="collapse" style=""
+        h4.panel-title Dashboard Menu
+      #c80cb3d6-50d2-b9b8-675c-1fd7385c310a.collapse aria-expanded="false" style=("height: 0px;")
+        .panel-body.list-group
+          ul.list-group.list-group-menu
+            li.list-group-item.active
+              a.link-text-color href="/courses"  Courses
+            li.list-group-item
+              a.link-text-color href="dashboard/my-courses"  Enroled Courses
+            <%if (permissions.includes('create_course')) {%>
+            li.list-group-item
+              a.link-text-color href="/dashboard/courses/create"  Create Course
+            li.list-group-item
+              a.link-text-color href="/dashboard/courses" Edit Courses
+            <%}%>
+            li.list-group-item
+              a#logout.link-text-color href="#"
+                span Logout
+  .col-md-7
     .row data-toggle="isotope"
-      .item.col-xs-12.col-md-6
+      #update_profile_form.item.col-xs-12.col-md-12
+  .col-md-5
+    .row data-toggle="isotope"
+      .item.col-xs-12
         .panel.panel-default.paper-shadow data-z="0.5"
           .panel-heading
-            h4.text-headline.margin-none My Courses
+            h4.text-headline.margin-none Courses
             p.text-subhead.text-light Your recent courses
+          ul.list-group
+            <% if(courses.length) { _.each(courses, function(course) {%>
+            li.list-group-item.media.v-middle
+              .media-body
+                a.text-subhead.list-group-link href="/courses/<%= course.id%>"
+                  | <%= course.title[0].toUpperCase() + course.title.slice(1)%>
+            <%})} else {%>
+            li.list-group-item.media.v-middle
+              .media-body.text-center
+                | You have not enrolled in any course.
+            <%}%>
           .panel-footer.text-right
-            a.btn.btn-white.paper-shadow.relative.link data-animated="" data-hover-z="1" data-z="0" href="/courses"  View All
-            a.btn.btn-primary.paper-shadow.relative.link data-animated="" data-hover-z="1" data-z="0" href="/dashboard/courses/create"
-              | CREATE COURSE
-              i.fa.fa-plus
+            a.btn.btn-white.paper-shadow.relative data-animated="" data-hover-z="1" data-z="0" href="<%= courses.length ? '/dashboard/my-courses' : '/courses'%>"
+              | <%= courses.length ? 'View all' : 'Learn Something New'%>

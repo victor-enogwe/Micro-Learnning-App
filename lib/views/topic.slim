@@ -1,1 +1,14 @@
 script#topic type="text/html"
+  .col-md-12.media.v-middle
+    .media-body
+      h1.text-display-1.margin-none
+        | <%= user_course_topic.title %>
+    .media-right
+      a.btn.btn-white.link.hidden-xs href="/courses/<%= user_course_topic.course_id %>" Visit Course Page
+  .col-md-12
+    .page-section
+      p
+        strong
+        | <%= user_course_topic.description%>
+      .embed-responsive.embed-responsive-16by9
+        iframe.embed-responsive-item src="<%= user_course_topic.url %>"

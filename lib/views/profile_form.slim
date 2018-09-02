@@ -1,0 +1,14 @@
+script#profile_form type="text/html"
+  form.panel.panel-default.paper-shadow data-z="0.5"
+    .panel-heading
+      h4.text-headline.margin-none Profile Info
+      p.text-subhead.text-light update your profile info below
+    .panel-body.row
+      div.col-md-6 data-fields="fname"
+      div.col-md-6 data-fields="lname"
+      div.col-md-12 data-fields="email"
+      div.col-md-6 data-fields="password"
+      div.col-md-6 data-fields="password_confirmation"
+    .panel-footer.text-right
+      button#form_save_user.btn.btn-primary.paper-shadow.relative.link data-animated="" data-hover-z="1" data-z="0"
+        | UPDATE PROFILE

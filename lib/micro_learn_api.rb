@@ -24,8 +24,19 @@ class MicroLearnApi < Sinatra::Base
     request.path_info.chomp!('/')
     request.body.rewind
     content_type :json
+    user_token request.env
     params[:id] = params[:id].to_i if params[:id]
     params[:category_id] = params[:category_id].to_i if params[:category_id]
+  end
+
+  def user_token(env)
+    options = { algorithm: ENV['JWT_ALGO'], iss: ENV['JWT_ISSUER'] }
+    token = env.fetch('HTTP_AUTHORIZATION', '').slice(7..-1)
+    payload = JWT.decode token, ENV['JWT_SECRET'], true, options
+    env[:scopes] = payload[0]['scopes']
+    env[:user] = payload[0]['user']
+  rescue StandardError
+    true
   end
 
   use ErrorHandler

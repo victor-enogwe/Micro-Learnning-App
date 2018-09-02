@@ -13,7 +13,7 @@ class UserCourse < ActiveRecord::Base
 
   def valid_registration_date
     message = 'must be a valid datetime'
-    date = Time.at(registration_date).strftime("%Y-%m-%d %H:%M:%S")
+    date = Time.at(registration_date).strftime('%Y-%m-%d %H:%M:%S')
     errors.add(:registration_date, message) if ((date rescue ArgumentError) == ArgumentError)
   end
 end

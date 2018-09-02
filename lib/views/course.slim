@@ -7,7 +7,7 @@ script#course type="text/html"
         a.btn.btn-default.btn-xs.link href="/courses/categories/<%=course.category.id%>"
           | <%= course.category.name %>
     .media-right
-      a.btn.btn-white.link.hidden-xs href="courses" Library
+      a.btn.btn-white.link.hidden-xs href="/courses" Library
   .col-lg-9.col-md-8
     .page-section
       p
@@ -26,6 +26,10 @@ script#course type="text/html"
                     i.fa.fa-list
                 .media-body.text-body-2
                   | <%= topic.title%>
+                <% if (course.user_topics && course.user_topics.includes(topic.id) && user_course && user_course.id) {%>
+                .media-right
+                  a.btn.btn-xs.btn-info href="/dashboard/courses/<%= course.id%>/topics/<%= topic.id%>" learn
+                <%}%>
             <%})%>
   .col-lg-3.col-md-4
     .page-section
@@ -57,10 +61,10 @@ script#course type="text/html"
             | Delivered At: <%= user_course.daily_delivery_time + ':00 o\'clock'%>
             <%}%>
         hr.margin-none/
-        <% if(!equality(course.creator.id, user.id) && course.topics.length) {%>
+        <% if(!equality(course.creator.id, userId) && course.topics.length) {%>
         .panel-body.text-center
           button#enrol.btn.btn-block.btn-success.btn-lg.paper-shadow.relative data-animated="" data-hover-z="2" data-z="1"
-            | <%= user_course && user_course.id ? 'Update Enrolment Details' : 'Start Course' %>
+            | <%= user_course && user_course.id ? 'Update Enrolment Details' : (userId ? 'Start Course' : 'Register To Enrol') %>
         <%}%>
         ul.list-group
           li.list-group-item

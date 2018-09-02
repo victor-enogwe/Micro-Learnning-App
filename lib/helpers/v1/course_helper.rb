@@ -74,9 +74,15 @@ module Sinatra
 
     def find_course
       param :course_id, Integer, min: 1, required: true
-      course = Course.includes(:topics, :user, :category, :users).find params[:course_id]
-      status = { status: 'success', data: { course: course } }
-      [200, status.to_json(include: %i[topics category user])]
+      user = request.env.values_at(:user).compact[0] || []
+      user_id = user['id'].to_i unless user.empty?
+      course = Course.includes(:topics, :user, :category)
+      user_topics = UserTopic.includes(:topic) unless user.empty?
+      user_topics = UserTopic.where(user_id: user_id, course_id: params[:course_id]) unless user.empty?
+      course = course.find(params[:course_id])
+      course = JSON.parse(course.to_json(include: %i[topics category user]))
+      course[:user_topics] = user_topics.map { |topic| topic.topic.id } unless user.empty?
+      [200, { status: 'success', data: { course: course } }.to_json]
     end
 
     def find_courses
@@ -111,11 +117,22 @@ module Sinatra
       [200, { status: 'success', message: message }.to_json]
     end
 
-    def find_course_topic
-      # param :course_id, Integer, min: 1, required: true
-      # param :topic_id, Integer, min: 1, required: true
-      # scopes, user = request.env.values_at :scopes, :user
-      # topic = UserTopic.exists? user_id: user['id'], course_id: params[:course_id]
+    def find_user_course_topic
+      param :course_id, Integer, min: 1, required: true
+      param :topic_id, Integer, min: 1, required: true
+      param :user_id, Integer, min: 1, required: true
+      permission params[:user_id].to_i, ['update_profile'], ['manage_topics']
+      user_course_exists = UserCourse.exists? course_id: params[:course_id], user_id: params[:user_id]
+      raise 'user not enroled for course' unless user_course_exists
+      user_course_topic = UserTopic.includes(:topic)
+      user_course_topic = user_course_topic.find_by(
+        user_id: params[:user_id].to_i,
+        course_id: params[:course_id].to_i,
+        topic_id: params[:topic_id].to_i
+      )
+      raise 'topic not found' unless user_course_topic
+      status = { status: 'success', data: { user_course_topic: user_course_topic.topic } }
+      [200, status.to_json]
     end
   end
 

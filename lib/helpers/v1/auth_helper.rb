@@ -19,7 +19,7 @@ module Sinatra
         iat: Time.now.to_i,
         iss: ENV['JWT_ISSUER'],
         scopes: user.permissions.map { |scope| scope[:name] },
-        user: { id: user[:id] }
+        user: { id: user[:id], fullname: "#{user[:fname]} #{user[:lname]}", email: user[:email] }
       }
     end
 

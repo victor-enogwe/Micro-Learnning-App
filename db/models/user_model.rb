@@ -35,4 +35,10 @@ class User < ActiveRecord::Base
   def full_name
     self.fname + self.lname
   end
+
+  def as_json(options = {})
+    super.tap do |hash|
+      hash.delete 'password_digest'
+    end
+  end
 end

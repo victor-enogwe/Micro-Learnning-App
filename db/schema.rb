@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
     t.datetime "registration_date", null: false
     t.integer "learning_interval_days", default: 2, null: false
     t.integer "daily_delivery_time", default: 24, null: false
-    t.datetime "last_sent_time", null: false
+    t.datetime "last_sent_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_user_courses_on_course_id"
