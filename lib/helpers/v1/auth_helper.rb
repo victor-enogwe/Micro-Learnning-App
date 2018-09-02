@@ -33,6 +33,8 @@ module Sinatra
     end
 
     def validate_login_params
+      puts params[:password]
+      puts params[:email]
       param :password, String, required: true, message: 'password required'
       param :email, String, required: true, format: URI::MailTo::EMAIL_REGEXP
     end
