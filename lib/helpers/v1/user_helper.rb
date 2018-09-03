@@ -25,6 +25,11 @@ module Sinatra
       param :user_id, Integer, min: 1
     end
 
+    def validate_instructor_requests_params
+      param :limit, Integer, min: 1, max: 1000, default: 100
+      param :offset, Integer, min: 0, max: 1000, default: 0
+    end
+
     def create_user(user)
       user = User.create! user
       user_role = Role.find_by_name 'user'
@@ -80,13 +85,66 @@ module Sinatra
       [200, { status: 'success', message: message }.to_json]
     end
 
-    def add_permission
+    def add_permissions
       param :permission, String, format: /\w+/, required: true
       permission nil, [], ['manage_users']
       access = find_permission_by_name params[:permission]
       user = User.find params[:id]
       user.permissions << access
       [200, { status: 'success', data: { user: user } }.to_json]
+    end
+
+    def become_instructor
+      param :user_id, Integer, min: 1, required: true
+      permission params[:user_id].to_i, ['update_profile'], ['manage_users']
+      exists = InstructorRequest.exists? user_id: params[:user_id]
+      raise 'you have already made this request' if exists
+      request = InstructorRequest.create user_id: params[:user_id]
+      [200, { status: 'success', data: { request: request } }.to_json]
+    end
+
+    def approve_instructor
+      param :request_id, Integer, min: 1, required: true
+      param :user_id, Integer, min: 1, required: true
+      permission params[:user_id].to_i, [], ['manage_users']
+      auth = %w[
+        create_course
+        update_course
+        delete_course
+        create_topic
+        update_topic
+        delete_topic
+      ]
+      user = User.find params[:user_id]
+      permissions = Permission.where(name: auth)
+      InstructorRequest.update params[:request_id], approved: true
+      user.permissions << permissions
+      [200, { status: 'success', message: 'user now an instructor' }.to_json]
+    end
+
+    def delete_instructor_request
+      param :request_id, Integer, min: 1, required: true
+      permission params[:user_id].to_i, [], ['manage_users']
+      request = InstructorRequest.find params[:request_id]
+      request.delete
+      [200, { status: 'success', message: 'request deleted' }.to_json]
+    end
+
+    def instructor_requests
+      validate_instructor_requests_params
+      permission nil, [], ['manage_users']
+      requests = InstructorRequest.includes(:user).where(approved: false)
+      count = requests.count
+      requests = requests.limit(params[:limit]).offset(params[:offset])
+      status = { status: 'success', data: { requests: requests, count: count } }
+      [200, status.to_json(include: %i[user])]
+    end
+
+    def instructor_request
+      param :user_id, Integer, min: 1, required: true
+      permission params[:user_id].to_i, ['update_profile'], ['manage_users']
+      request = InstructorRequest.find_by user_id: params[:user_id]
+      [200, { status: 'success', data: { request: request } }.to_json]
     end
 
     def add_user_course

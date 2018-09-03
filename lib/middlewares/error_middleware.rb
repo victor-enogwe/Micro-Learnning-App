@@ -30,7 +30,7 @@ class ErrorHandler
     code = error_data[:code] || 500
     message = error_data[:message] || error.to_s
     hash = { status: 'error', message: message }
-    hash[:backtrace] = error.backtrace #if ENV['RACK_ENV'] == 'development'
+    hash[:backtrace] = error.backtrace if ENV['RACK_ENV'] == 'development'
     [code, @content_type, [hash.to_json]]
   end
 end

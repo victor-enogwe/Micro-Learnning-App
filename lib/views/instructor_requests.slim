@@ -1,0 +1,44 @@
+script#instructor_requests type="text/html"
+  .panel.panel-default
+    .panel-heading style="border-color: #fff"
+      h4.text-headline.margin-none Instructor Requests
+      p.text-subhead approve or delete pending requests
+    .table-responsive
+      table.table.v-middle
+        thead
+          tr
+            th Date
+            th Name
+            th Email
+            th.text-right Action
+        tbody#responsive-table-body
+          <% if (requests.length) { _.each(requests, function(request) {%>
+          tr
+            td
+              span.label.label-default
+                | <%= new Date(request.created_at).toUTCString()%>
+            td
+              | <%= request.user.fname + ' ' + request.user.lname%>
+            td
+              a href="#"
+                | <%= request.user.email%>
+            td.text-right
+              a.btn.btn-default.btn-xs.action style="margin-right: 10px" data-id="<%= request.id%>" data-user-id="<%= request.user.id%>"
+                i.fa.fa-save
+                | &nbsp;Approve
+              a.btn.btn-danger.btn-xs.action data-id="<%= request.id%>" data-user-id="<%= request.user.id%>"
+                i.fa.fa-times
+                | &nbsp;Delete
+          <%}) } else {%>
+          tr
+            td.text-center
+              | No Pending Requests
+          <%}%>
+    .panel-footer.padding-none.text-center
+      ul.pagination
+        <%if (page > 0) {%>
+        #load_requests_more_prev.btn.btn-default LOAD PREV
+        <% }%>
+        <% if ((count / 5 > page + 1) && ((page + 1) * 5 < count)) {%>
+        #load_requests_more_next.btn.btn-primary.next_tab LOAD NEXT
+        <% }%>

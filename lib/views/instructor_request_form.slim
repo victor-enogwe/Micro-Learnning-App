@@ -1,0 +1,20 @@
+script#instructor_request_form type="text/html"
+  .panel.panel-default
+    .media.v-middle
+      .media-left
+        .bg-green-400.text-white
+          .panel-body
+            i.fa.fa-book.fa-fw.fa-2x
+      .media-body.hidden-xs
+        | Teach others what you know.
+        span.text-body-2 &nbsp;Pass that knowledge along!
+      .media-right.media-padding
+        <% if (isNew) {%>
+        a#become_instructor.btn.btn-white.paper-shadow.relative data-animated="" data-hover-z="1" data-z="0.5" href="#"
+          | Become An Instructor
+        <%}%>
+        <% if (!approved && id) {%>
+        button.btn.btn-white.btn-xs.relative disabled="disabled"
+          | instructor request under review
+        <%}%>
+

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :topics, through: :user_topics, dependent: :destroy
   has_many :user_permissions
   has_many :permissions, through: :user_permissions, dependent: :destroy
+  has_one :instructor_request
 
   password_message = 'Password length must be greater than 6'
   name_message = 'Name must bbe 2-20 alphabets long'

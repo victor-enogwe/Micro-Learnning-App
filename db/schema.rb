@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_04_133057) do
+ActiveRecord::Schema.define(version: 2018_09_02_214114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["creator_id"], name: "index_courses_on_creator_id"
     t.index ["title"], name: "index_courses_on_title"
+  end
+
+  create_table "instructor_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "approved", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_instructor_requests_on_user_id"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -113,6 +121,7 @@ ActiveRecord::Schema.define(version: 2018_08_04_133057) do
 
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "users", column: "creator_id"
+  add_foreign_key "instructor_requests", "users", on_delete: :cascade
   add_foreign_key "role_permissions", "permissions", on_delete: :cascade
   add_foreign_key "role_permissions", "roles", on_delete: :cascade
   add_foreign_key "topics", "courses", on_delete: :cascade

@@ -32,7 +32,12 @@ module Sinatra
     end
 
     def self.user_permissions_routes(app)
-      app.post('/users/:user_id/permissions') { add_user_permission }
+      app.get('/instructor-requests') { instructor_requests }
+      app.delete('/instructor-requests/:request_id') { delete_instructor_request }
+      app.patch('/instructor-requests/:request_id') { approve_instructor }
+      app.get('/users/:user_id/instructor') { instructor_request }
+      app.post('/users/:user_id/instructor') { become_instructor }
+      app.post('/users/:user_id/permissions') { add_user_permissions }
       app.delete('/users/:user_id/permissions') { delete_user_permissions }
     end
 

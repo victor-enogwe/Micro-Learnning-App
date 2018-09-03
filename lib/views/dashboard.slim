@@ -13,19 +13,7 @@ script#dashboard type="text/html"
         span.label.bg-blue-500
           | <%= permissions.includes('manage_users') ? 'Admin' : (permissions.includes('create_course') ? 'Instructor' : 'Student')%>
   <%if (!permissions.includes('create_course')) {%>
-  .col-md-12
-    .panel.panel-default
-      .media.v-middle
-        .media-left
-          .bg-green-400.text-white
-            .panel-body
-              i.fa.fa-credit-card.fa-fw.fa-2x
-        .media-body.hidden-xs
-          | Teach others what you know.
-          span.text-body-2 &nbsp;Pass that knowledge along!
-        .media-right.media-padding
-          a.btn.btn-white.paper-shadow.relative data-animated="" data-hover-z="1" data-z="0.5" href="#"
-            | Become An Instructor
+  #instructor_request.col-md-12
   <%}%>
   .col-md-12
     .panel.panel-default data-open="false" data-toggle="panel-collapse"
@@ -57,7 +45,7 @@ script#dashboard type="text/html"
           .panel-heading
             h4.text-headline.margin-none Courses
             p.text-subhead.text-light Your recent courses
-          ul.list-group
+          ul.list-group style="min-height: 37vh"
             <% if(courses.length) { _.each(courses, function(course) {%>
             li.list-group-item.media.v-middle
               .media-body
@@ -71,3 +59,8 @@ script#dashboard type="text/html"
           .panel-footer.text-right
             a.btn.btn-white.paper-shadow.relative data-animated="" data-hover-z="1" data-z="0" href="<%= courses.length ? '/dashboard/my-courses' : '/courses'%>"
               | <%= courses.length ? 'View all' : 'Learn Something New'%>
+  <%if (permissions.includes('manage_users')) {%>
+  .col-md-12
+    .row data-toggle="isotope"
+      #instructor_requests_view.item.col-xs-12.col-md-12
+  <%}%>
