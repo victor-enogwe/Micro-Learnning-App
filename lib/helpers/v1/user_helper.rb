@@ -164,7 +164,6 @@ module Sinatra
       count = courses.count
       courses = courses.limit(params[:limit]).offset(params[:offset])
       courses = format_find_user_courses courses
-      print courses
       status = { status: 'success', data: { courses: courses, count: count } }
       [200, status.to_json]
     end

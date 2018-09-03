@@ -123,7 +123,8 @@ module Sinatra
       param :user_id, Integer, min: 1, required: true
       permission params[:user_id].to_i, ['update_profile'], ['manage_topics']
       user_course_exists = UserCourse.exists? course_id: params[:course_id], user_id: params[:user_id]
-      raise 'user not enroled for course' unless user_course_exists
+      is_owner = Course.exists? id: params[:course_id], creator_id: params[:user_id]
+      raise 'user not enroled for course' unless user_course_exists || is_owner
       user_course_topic = UserTopic.includes(:topic)
       user_course_topic = user_course_topic.find_by(
         user_id: params[:user_id].to_i,
