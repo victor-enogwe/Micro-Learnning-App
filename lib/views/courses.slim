@@ -50,5 +50,13 @@ script#courses type="text/html"
         <% if ((count / 5 > page + 1) && ((page + 1) * 5 < count)) {%>
         #load_more_next.btn.btn-primary.next_tab LOAD NEXT COURSES
         <% }%>
-    <% }%>
+    <% } else {%>
+      .row
+        .col.col-centered.col-md-6.col-login style="margin: 4% auto"
+          .panel style="background: transparent"
+            .panel-body
+              h1.text-display-1.text-center.margin-bottom-none Nothing Here Yet.
+              p.text-subhead.text-light.text-center
+                | check back later.
+    <%}%>
 

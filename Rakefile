@@ -3,6 +3,7 @@ if ENV['RACK_ENV'] == 'development' || !ENV['RACK_ENV']
   Dotenv.overload
 end
 
+require 'faker'
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
 require_relative './lib/jobs/topic_job'

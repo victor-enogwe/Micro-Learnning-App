@@ -28,7 +28,6 @@ require './lib/micro_learn'
 require './lib/micro_learn_api'
 require './lib/micro_learn_api_auth'
 
-use Rack::Profiler if ENV['RACK_ENV'] == 'development'
 use Rack::ETag
 use Rack::BounceFavicon
 

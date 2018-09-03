@@ -1,7 +1,8 @@
-class InstructorRequests < ActiveRecord::Migration[5.2]
+class InstructorsRequests < ActiveRecord::Migration[5.2]
   def change
     create_table :instructor_requests do |t|
-      t.integer :user_id, null: false, :limit => 8, index: { unique: true }
+      t.belongs_to :user, index: true
+      t.integer :user_id, null: false, :limit => 8
       t.boolean :approved, null: false, default: false
       t.timestamps
     end

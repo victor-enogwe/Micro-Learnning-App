@@ -6,6 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem 'activerecord'
 gem 'bcrypt'
+gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
 gem 'json-schema'
 gem 'jwt'
 gem 'pg'
