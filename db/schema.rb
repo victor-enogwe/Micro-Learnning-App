@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 2018_09_02_214114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
@@ -80,10 +79,12 @@ ActiveRecord::Schema.define(version: 2018_09_02_214114) do
     t.datetime "registration_date", null: false
     t.integer "learning_interval_days", default: 2, null: false
     t.integer "daily_delivery_time", default: 24, null: false
+    t.datetime "last_sent_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_user_courses_on_course_id"
     t.index ["daily_delivery_time"], name: "index_user_courses_on_daily_delivery_time"
+    t.index ["last_sent_time"], name: "index_user_courses_on_last_sent_time"
     t.index ["learning_interval_days"], name: "index_user_courses_on_learning_interval_days"
     t.index ["user_id"], name: "index_user_courses_on_user_id"
   end

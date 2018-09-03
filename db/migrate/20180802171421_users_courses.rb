@@ -8,6 +8,7 @@ class UsersCourses < ActiveRecord::Migration[5.2]
       t.datetime :registration_date, null: false
       t.integer :learning_interval_days, null: false, :default => 2, index: true
       t.integer :daily_delivery_time, null: false, :default => 24, index: true
+      t.datetime :last_sent_time, index: true
       t.timestamps
     end
     add_foreign_key :user_courses, :users, on_delete: :cascade

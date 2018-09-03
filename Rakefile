@@ -4,6 +4,7 @@ if ENV['RACK_ENV'] == 'development' || !ENV['RACK_ENV']
 end
 
 require 'faker'
+require 'sendgrid-ruby'
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
 require_relative './lib/jobs/topic_job'

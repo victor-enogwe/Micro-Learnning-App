@@ -1,5 +1,6 @@
 # Topic Job Class
 class TopicJob
+  include SendGrid
   def start
     midnight = Date.today.midnight
     end_of_day = Date.today.end_of_day
@@ -22,7 +23,7 @@ class TopicJob
       user_course.course.topics.each do |topic|
         next if topic_already_sent topic, user[:id], course[:id]
         next unless Time.now.hour == user_course[:daily_delivery_time]
-        send_topic topic
+        send_topic topic, user_course[:id], user[:email]
         mark_topic_as_sent topic, user
         update_last_sent_time user_course
         break
@@ -34,9 +35,20 @@ class TopicJob
     UserTopic.exists? topic_id: topic[:id], user_id: user_id, course_id: course_id
   end
 
-  def send_topic(topic)
-    # send mail
-    print topic.to_json
+  def send_topic(topic, course_id, user_email)
+    url = "#{ENV['HOST_NAME']}/dashboard/courses/#{course_id}/topics/#{topic[:id]}"
+    mail = Mail.new
+    mail.from = Email.new(email: ENV['ADMIN_EMAIL'])
+    mail.subject = 'Something New To Learn'
+    personalization = Personalization.new
+    personalization.add_to(Email.new(email: user_email))
+    data = { title: topic[:title], description: topic[:description], url: url }
+    mail.add_personalization(personalization)
+    mail.template_id = ENV['SENDGRID_TEMPLATE_ID']
+    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    mail.personalizations[0]['dynamic_template_data'] = data
+    response = sg.client.mail._('send').post(request_body: mail.to_json)
+    raise 'delivery failed' if response.status_code.to_i > 399
   end
 
   def mark_topic_as_sent(topic, user)
