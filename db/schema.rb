@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_09_02_214114) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_instructor_requests_on_user_id"
+    t.index ["user_id"], name: "instructor_requests_user_id_key", unique: true
   end
 
   create_table "permissions", force: :cascade do |t|
