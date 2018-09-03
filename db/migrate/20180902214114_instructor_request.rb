@@ -1,4 +1,4 @@
-class InstructorRequest < ActiveRecord::Migration[5.2]
+class InstructorRequests < ActiveRecord::Migration[5.2]
   def change
     create_table :instructor_requests do |t|
       t.integer :user_id, null: false, :limit => 8, index: { unique: true }
