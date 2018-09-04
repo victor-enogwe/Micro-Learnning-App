@@ -26,9 +26,10 @@ script#course type="text/html"
                     i.fa.fa-list
                 .media-body.text-body-2
                   | <%= topic.title%>
-                <% if (course.user_topics && course.user_topics.includes(topic.id) && user_course && user_course.id) {%>
+                <% if (equality(userId, course.creator_id) || (course.user_topics && course.user_topics.includes(topic.id) && user_course && user_course.id)) {%>
                 .media-right
-                  a.btn.btn-xs.btn-info href="/dashboard/courses/<%= course.id%>/topics/<%= topic.id%>" learn
+                  a.btn.btn-xs.btn-primary href="/dashboard/courses/<%= course.id%>/topics/<%= topic.id%>"
+                    | <%= equality(userId, course.creator_id) ? 'view topic' : 'learn'%>
                 <%}%>
             <%})%>
   .col-lg-3.col-md-4

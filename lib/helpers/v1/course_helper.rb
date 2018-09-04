@@ -124,15 +124,11 @@ module Sinatra
       permission params[:user_id].to_i, ['update_profile'], ['manage_topics']
       user_course_exists = UserCourse.exists? course_id: params[:course_id], user_id: params[:user_id]
       is_owner = Course.exists? id: params[:course_id], creator_id: params[:user_id]
-      raise 'user not enroled for course' unless user_course_exists || is_owner
-      user_course_topic = UserTopic.includes(:topic)
-      user_course_topic = user_course_topic.find_by(
-        user_id: params[:user_id].to_i,
-        course_id: params[:course_id].to_i,
-        topic_id: params[:topic_id].to_i
-      )
-      raise 'topic not found' unless user_course_topic
-      status = { status: 'success', data: { user_course_topic: user_course_topic.topic } }
+      is_admin = check_permissions ['manage_topics']
+      raise 'user not enroled for course' unless user_course_exists || is_owner || is_admin
+      topic = Topic.find_by course_id: params[:course_id].to_i, id: params[:topic_id].to_i
+      raise 'topic not found' unless topic
+      status = { status: 'success', data: { user_course_topic: topic } }
       [200, status.to_json]
     end
   end
