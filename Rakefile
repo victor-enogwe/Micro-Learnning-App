@@ -17,8 +17,8 @@ Dir.glob(File
   .join(APP_ROOT, 'db', 'models', '*.rb')).each { |file| require file }
 
 namespace :micro_learn  do
-  desc 'Setup MicroLearn App.'
-  task setup: %w[db:migrate db:seed]
+  desc 'Setup MicroLearn App Database.'
+  task setup_database: %w[db:migrate db:seed]
 
   desc 'Send Out Topics To Enroled Users'
   task :send_topic do
