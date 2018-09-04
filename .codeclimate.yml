@@ -17,6 +17,7 @@ plugins:
   rubocop:
     enabled: true
 exclude_patterns:
+ - typings
  - features/**/*
  - spec/**/*
  - test/**/*
