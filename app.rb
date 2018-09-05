@@ -34,7 +34,7 @@ use Rack::ETag unless ENV['RACK_ENV'] == 'test'
 use Rack::BounceFavicon unless ENV['RACK_ENV'] == 'test'
 
 def app
-  Rack::URLMap.new(
+  run Rack::URLMap.new(
     '/' => MicroLearn.new,
     '/api/v1' => MicroLearnApi.new,
     '/api/v1/auth' => MicroLearnApiAuth.new

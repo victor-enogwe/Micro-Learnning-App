@@ -2,4 +2,4 @@
 
 require_relative 'app'
 
-run app unless ENV['RACK_ENV'] == 'test'
+app unless ENV['RACK_ENV'] == 'test'

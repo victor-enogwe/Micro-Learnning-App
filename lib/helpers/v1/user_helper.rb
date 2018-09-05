@@ -62,7 +62,7 @@ module Sinatra
       [200, { status: 'success', data: { user: user } }.to_json]
     end
 
-    def edit_user
+    def update_user
       param :user_id, Integer, min: 1, required: true
       validate_create_user_params false
       permission params[:user_id].to_i, ['update_profile'], ['manage_users']

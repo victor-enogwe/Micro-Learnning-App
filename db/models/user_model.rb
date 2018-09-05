@@ -21,8 +21,14 @@ class User < ActiveRecord::Base
 
   validates :password,
     :presence => { message: password_message },
-    :length => { minimum: 7, message: password_message  },
-    :format => { with: /.{7,}/, message: password_message }
+    :length => { :within => 7..40, message: password_message  },
+    :format => { with: /.{7,}/, message: password_message },
+    :on => :create
+
+  validates :password, :confirmation => true,
+    :length => {:within => 7..40, message: password_message },
+    :allow_blank => true,
+    :on => :update
 
   validates :fname, :lname,
     :presence => { message: 'please enter your name' },

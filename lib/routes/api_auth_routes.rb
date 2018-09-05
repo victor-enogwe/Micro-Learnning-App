@@ -27,7 +27,7 @@ module Sinatra
     def self.user_routes(app)
       app.get('/users') { find_users }
       app.get('/users/:user_id') { find_user }
-      app.put('/users/:user_id') { edit_user }
+      app.patch('/users/:user_id') { update_user }
       app.delete('/users/:user_id') { delete_user }
     end
 

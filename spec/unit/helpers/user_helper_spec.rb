@@ -4,6 +4,7 @@ RSpec.describe 'UserHelper' do
   class UserHelper
     include Sinatra::UserHelper
   end
+
   describe '.create_user' do
     context 'when user does not exist' do
       it 'should create a new user' do
