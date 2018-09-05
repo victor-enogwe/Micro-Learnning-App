@@ -22,14 +22,14 @@ script#course type="text/html"
             li.list-group-item
               .media.v-middle
                 .media-left
-                  .icon-block.s30.bg-indigo-300.text-white.img-circle
-                    i.fa.fa-list
+                  i.fa.fa-long-arrow-right
                 .media-body.text-body-2
                   | <%= topic.title%>
                 <% if (equality(userId, course.creator_id) || (course.user_topics && course.user_topics.includes(topic.id) && user_course && user_course.id)) {%>
                 .media-right
-                  a.btn.btn-xs.btn-primary href="/dashboard/courses/<%= course.id%>/topics/<%= topic.id%>"
-                    | <%= equality(userId, course.creator_id) ? 'view topic' : 'learn'%>
+                  a.btn.btn-xs.btn-success.btn-flat href="/dashboard/courses/<%= course.id%>/topics/<%= topic.id%>"
+                    i.fa.fa-location-arrow &nbsp;
+                    | <%= equality(userId, course.creator_id) ? 'open' : 'learn'%>
                 <%}%>
             <%})%>
   .col-lg-3.col-md-4
@@ -55,17 +55,21 @@ script#course type="text/html"
             i.fa.fa-check.fa-fw
             | Enrolled On: <%= new Date(user_course.registration_date).toUTCString()%>
             br
+            <% if(user_course && user_course.learning_interval_days) {%>
             i.fa.fa-calendar.fa-fw
             | Topics Sent Every: <%= user_course.learning_interval_days + 'day(s)'%>
             br
+            <%}%>
+            <% if(user_course && user_course.daily_delivery_time) {%>
             i.fa.fa-clock-o.fa-fw
             | Delivered At: <%= user_course.daily_delivery_time + ':00 o\'clock'%>
+            <%}%>
             <%}%>
         hr.margin-none/
         <% if(!equality(course.creator.id, userId) && course.topics.length) {%>
         .panel-body.text-center
           button#enrol.btn.btn-block.btn-success.btn-lg.paper-shadow.relative data-animated="" data-hover-z="2" data-z="1"
-            | <%= user_course && user_course.id ? 'Update Enrolment Details' : (userId ? 'Start Course' : 'Register To Enrol') %>
+            | <%= user_course && user_course.id ? 'Update Enrolment' : (userId ? 'Start Course' : 'Register To Enrol') %>
         <%}%>
         ul.list-group
           li.list-group-item

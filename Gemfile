@@ -28,7 +28,10 @@ group :development do
 end
 
 group :test do
+  gem 'rack-test'
   gem 'rspec'
+  gem 'factory_bot'
+  gem 'capybara'
 end
 
 group :development, :test do
