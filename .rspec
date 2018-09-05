@@ -1,3 +1,6 @@
+--require simplecov
+--require simplecov-console
+--require simplecov-lcov
 --require rack/test
 --require spec_helper
 --require capybara/rspec

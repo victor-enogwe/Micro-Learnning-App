@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 ENV['RACK_ENV'] = 'test'
-require_relative '../app'
 
+formatters = [SimpleCov::Formatter::Console, SimpleCov::Formatter::LcovFormatter]
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new formatters
+SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+SimpleCov.start
+
+require_relative '../app'
+puts app
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include FactoryBot::Syntax::Methods

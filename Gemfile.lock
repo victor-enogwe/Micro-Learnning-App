@@ -108,6 +108,7 @@ GEM
       hirb
       simplecov
     simplecov-html (0.10.2)
+    simplecov-lcov (0.7.0)
     sinatra (2.0.3)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -156,6 +157,7 @@ DEPENDENCIES
   shotgun
   simplecov
   simplecov-console
+  simplecov-lcov
   sinatra
   sinatra-activerecord
   sinatra-param
