@@ -46,6 +46,10 @@ jobs:
       - restore_cache:
           <<: *restore_cache
       - run:
+          name: install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run:
           name: Notify Code Climate of current test
           command: ./cc-test-reporter before-build
       - run:
