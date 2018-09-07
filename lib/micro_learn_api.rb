@@ -7,10 +7,6 @@ require 'rack'
 
 # micro learning class
 class MicroLearnApi < Sinatra::Base
-  configure :development, :test do
-    Dotenv.overload
-  end
-
   set :database_url, ENV['DATABASE_URL']
   set :dump_errors, false
   set :raise_errors, true

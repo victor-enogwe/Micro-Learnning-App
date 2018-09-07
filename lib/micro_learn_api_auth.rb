@@ -1,4 +1,5 @@
-require 'dotenv' if ENV['RACK_ENV'] == 'development'
+# frozen_string_literal=true
+
 require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'sinatra/param'
@@ -7,10 +8,6 @@ require 'rack'
 
 # micro learning class
 class MicroLearnApiAuth < Sinatra::Base
-  configure :development, :test do
-    Dotenv.overload
-  end
-
   set :database_url, ENV['DATABASE_URL']
   set :dump_errors, false
   set :raise_errors, true

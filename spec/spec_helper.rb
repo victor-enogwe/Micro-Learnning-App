@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-ENV['RACK_ENV'] = 'test'
 SimpleCov::Formatter::LcovFormatter.config do |c|
   c.output_directory = 'coverage'
   c.lcov_file_name = 'lcov.info'
@@ -12,12 +11,16 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new formatters
 SimpleCov.start
 
 require_relative '../app'
+require_relative '../rakefile'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
+    Rake::Task['db:drop'].invoke
+    Rake::Task['db:create'].invoke
+    Rake::Task['micro_learn:setup_database'].invoke
     FactoryBot.find_definitions
   end
 

@@ -4,6 +4,9 @@ require 'rubygems'
 require 'bundler'
 require 'rack/parser'
 require 'rack/contrib'
+require 'dotenv' unless ENV['RACK_ENV'] == 'production'
+
+Dotenv.overload unless ENV['RACK_ENV'] == 'production'
 
 Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
