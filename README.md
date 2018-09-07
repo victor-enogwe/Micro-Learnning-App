@@ -1,6 +1,7 @@
 # Micro-Learnning-App
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/6020ea067cd700e922d4/maintainability)](https://codeclimate.com/github/andela-venogwe/Micro-Learnning-App/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/6020ea067cd700e922d4/test_coverage)](https://codeclimate.com/github/andela-venogwe/Micro-Learnning-App/test_coverage)
 
 A Micro Learning App Built With Sinatra, BackboneJs and ActiveRecord.
 
