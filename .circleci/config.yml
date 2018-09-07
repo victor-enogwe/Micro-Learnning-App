@@ -52,7 +52,7 @@ jobs:
           command: ./cc-test-reporter before-build
       - run:
           name: run tests
-          command: rspec
+          command: bundle exec rspec
       - run:
           name: Send coverage to Code Climate
           command: ./cc-test-reporter after-build upload-coverage -t lcov
