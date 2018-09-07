@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
 ENV['RACK_ENV'] = 'test'
-
+SimpleCov::Formatter::LcovFormatter.config do |c|
+  c.output_directory = 'coverage'
+  c.lcov_file_name = 'lcov.info'
+  c.single_report_path = 'coverage/lcov.info'
+  c.report_with_single_file = true
+end
 formatters = [SimpleCov::Formatter::Console, SimpleCov::Formatter::LcovFormatter]
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new formatters
-SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
 SimpleCov.start
 
 require_relative '../app'
-puts app
+
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include FactoryBot::Syntax::Methods
