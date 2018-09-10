@@ -18,7 +18,7 @@ RSpec.describe UserHelper do
     end
 
     context 'when user exists' do
-      it 'should return an a active record invalid error' do
+      it 'should return active record invalid error' do
         user = attributes_for(:user)
         expect { user_helper.create_user(user) }.to raise_exception(
           ActiveRecord::RecordInvalid,
@@ -36,37 +36,5 @@ RSpec.describe UserHelper do
         expect(user[:email]).to eq 'johndoe@gmail.com'
       end
     end
-  end
-
-  describe '.format_find_user_courses' do
-    it {}
-  end
-
-  describe '.register_user' do
-    it {}
-  end
-
-  describe '.edit_user' do
-    it {}
-  end
-
-  describe '.find_user' do
-    it {}
-  end
-
-  describe '.delete_user' do
-    it {}
-  end
-
-  describe '.add_permissions' do
-    it {}
-  end
-
-  describe '.become_instructor' do
-    it {}
-  end
-
-  describe 'approve_instructor' do
-    it {}
   end
 end

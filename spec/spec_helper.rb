@@ -3,12 +3,16 @@
 SimpleCov::Formatter::LcovFormatter.config do |c|
   c.output_directory = 'coverage'
   c.lcov_file_name = 'lcov.info'
-  c.single_report_path = 'coverage/lcov.info'
+  c.single_report_path = './coverage/lcov.info'
   c.report_with_single_file = true
 end
+
 formatters = [SimpleCov::Formatter::Console, SimpleCov::Formatter::LcovFormatter]
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new formatters
-SimpleCov.start
+
+SimpleCov.start do
+  add_group 'Project', ['../lib', '../db/models']
+end
 
 require_relative '../app'
 require_relative '../rakefile'
