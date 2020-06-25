@@ -59,7 +59,7 @@ GEM
     pg (1.0.0)
     powerpack (0.1.2)
     public_suffix (3.0.2)
-    rack (2.0.5)
+    rack (2.1.4)
     rack-contrib (2.0.1)
       rack (~> 2.0)
     rack-parser (0.7.0)
